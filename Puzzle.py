@@ -11,18 +11,25 @@ class Puzzle:
     def __init__(self, height=0, width=0, walls=set(), goals=set(), start=None):
         self.height = height
         self.width = width
-        self.walls = set()
-        self.goals = set()
+        self.walls = walls
+        self.goals = goals
         self.deadlocks = set()        # dead squares, filled by findDeadlocks()
+        self.floorSpaces = set()      # walkable squares located within a puzzle, does not count squares outside of walls, 
+                                      # filled by findFloorSpaces()
         self.startState = start
 
     # Read in a Sokoban puzzle in the form of a text file. Parse each line of the file in order to extract the 
     # x and y coordinates of the different Sokoban elements and add that information to the Puzzle class.
     def parsePuzzleFile(self, puzzleFile):
-        numRows = 0
-        numCols = 0
+        # Reset the Puzzle on use
+        self.walls = set()
+        self.goals = set()
+        self.deadlocks = set()
         boxes = set()
         player = None
+
+        numRows = 0
+        numCols = 0
 
         # Open the puzzle file
         with open(puzzleFile, "r") as f:
@@ -55,11 +62,14 @@ class Puzzle:
                 numRows += 1
                 numCols = max(numCols, tempNumCols)
 
-        # Finally, initialize the height, width, and start State
+        # Finally, initialize the height, width, start State, and walkable floors
         self.height = numRows
         self.width = numCols
         self.startState = State(frozenset(boxes), player)
-        
+        self.findFloors()
+
+    def findFloorSpaces(self):
+        pass
 
     def findDeadlocks(self):
         pass
