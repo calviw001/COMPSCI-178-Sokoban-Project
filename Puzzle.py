@@ -1,5 +1,6 @@
 from pathlib import Path
 from State import State
+from collections import deque
 
 class Puzzle:
     """
@@ -66,10 +67,37 @@ class Puzzle:
         self.height = numRows
         self.width = numCols
         self.startState = State(frozenset(boxes), player)
-        self.findFloors()
+        self.findFloorSpaces()
 
+    # Use a BFS to find every walkable square/floor of the Sokoban puzzle
+    # Create a set of these floors and set that equal to 'self.floorSpaces'
     def findFloorSpaces(self):
-        pass
+        # Create a set to hold the current number of floors discovered
+        # Initialize a queue with the player square to start
+        currentFloorSpaces = set()
+        squareQueue = deque([self.startState.player])
+
+        # Run until the queue is empty
+        while squareQueue:
+            # Get the first square and its x and y coordinates
+            currSquare = squareQueue.popleft()
+            currRow, currCol = currSquare
+
+            # Do not add the current square to the queue if its a wall, if its already been added before, or if its located
+            # outside the boundaries of the puzzle
+            if currSquare in self.walls or currSquare in currentFloorSpaces:
+                continue
+            if not (1 <= currRow <= self.height and 1 <= currCol <= self.width):
+                continue
+            currentFloorSpaces.add(currSquare)
+
+            # Calculate and then add all the neighboring squares to the queue
+            for horDir, verDir in [(-1, 0), (0, 1), (1, 0), (0, -1)]:
+                squareQueue.append((currRow + horDir, currCol + verDir))
+
+        # Once the queue is empty, set 'self.floorSpaces' equal to the set of all floors found
+        self.floorSpaces = currentFloorSpaces
+
 
     def findDeadlocks(self):
         pass
