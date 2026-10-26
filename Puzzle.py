@@ -69,8 +69,8 @@ class Puzzle:
         self.startState = State(frozenset(boxes), player)
         self.findFloorSpaces()
 
-    # Use a BFS to find every walkable square/floor of the Sokoban puzzle
-    # Create a set of these floors and set that equal to 'self.floorSpaces'
+    # Use a BFS to find every walkable square/floor of the Sokoban puzzle.
+    # Create a set of these floors and set that equal to 'self.floorSpaces.'
     def findFloorSpaces(self):
         # Create a set to hold the current number of floors discovered
         # Initialize a queue with the player square to start
@@ -84,7 +84,7 @@ class Puzzle:
             currRow, currCol = currSquare
 
             # Do not add the current square to the queue if its a wall, if its already been added before, or if its located
-            # outside the boundaries of the puzzle
+            # outside the boundaries of the puzzle.
             if currSquare in self.walls or currSquare in currentFloorSpaces:
                 continue
             if not (1 <= currRow <= self.height and 1 <= currCol <= self.width):
@@ -99,8 +99,43 @@ class Puzzle:
         self.floorSpaces = currentFloorSpaces
 
 
+    # Use a BFS to find every static deadlock of the Sokoban puzzle.
+    # This does not find dynamically created deadlocks that result from getting two or more boxes stuck next to each other.
     def findDeadlocks(self):
-        pass
+        # Initialize a set to hold all non-deadlock squares
+        notDeadlocks = set()
+
+        # Initialize a queue with the goal squares to start
+        squareQueue = deque()
+        for eachGoal in self.goals:
+            squareQueue.append(eachGoal)
+
+        # Run until the queue is empty
+        while squareQueue:
+            # Get the first square and its x and y coordinates
+            currSquare = squareQueue.popleft()
+            currRow, currCol = currSquare
+
+            # Squares popped from the queue have alright been checked to see if they are non-deadlocks by the for loop later on.
+            # Therefore, we can add these squares to our set of non-deadlocks.
+            if currSquare in notDeadlocks:
+                continue
+            notDeadlocks.add(currSquare)
+
+            # For each square, imagine that there is a box on it and a player on one of the box's sides.
+            # For each neighboring square, analyze whether a player is able to backtrack and pull a box from the current square to one of 
+            # the neighboring squares. 
+            for horDir, verDir in [(-1, 0), (0, 1), (1, 0), (0, -1)]:
+                backTrackedBox = (currRow + horDir, currCol + verDir)
+                backTrackedPlayer = (currRow + 2*horDir, currCol + 2*verDir)
+
+                # If a player can indeed pull a box back into a neightboring square, then that square is not a deadlock
+                if backTrackedBox in self.floorSpaces and backTrackedPlayer in self.floorSpaces:
+                    squareQueue.append(backTrackedBox)
+
+        # Once the queue is empty, set 'self.deadlocks' equal to the set of all floors minus the set of all non-deadlock squares
+        self.deadlocks = self.floorSpaces - notDeadlocks
+
 
     def hasReachedGoal(self, state):             
         pass
