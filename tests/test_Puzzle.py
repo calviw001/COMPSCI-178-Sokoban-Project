@@ -58,5 +58,27 @@ class TestPuzzleClass(unittest.TestCase):
         self.assertEqual(p3.floorSpaces, expectedFloors)
 
 
+    def test_find_deadlocks(self):
+        p1 = load("small.txt")
+        p1.findDeadlocks()
+        self.assertEqual(p1.deadlocks, {(2, 2)})
+
+        p2 = load("medium.txt")
+        p2.findDeadlocks()
+        expectedDeadlocks = {
+            (2, 3), (2, 5), (2, 6), (2, 7),
+            (3, 7),
+            (4, 2), (4, 4),
+            (5, 5),
+            (6, 2),
+            (7, 2), (7, 6), (7, 7),
+        }
+        self.assertEqual(p2.deadlocks, expectedDeadlocks)
+
+        p3 = load("smallMixedSymbols.txt")
+        p3.findDeadlocks()
+        self.assertEqual(p3.deadlocks, {(3, 2), (3, 6)})
+        
+
 if __name__ == "__main__":
     unittest.main()
