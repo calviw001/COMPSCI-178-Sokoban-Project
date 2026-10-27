@@ -140,7 +140,7 @@ class Puzzle:
     def hasReachedGoal(self, state):             
         pass
 
-    def isSpaceReachable(self, state):         
+    def allReachableSquares(self, state):         
         pass
 
     def allPushes(self, state):      
