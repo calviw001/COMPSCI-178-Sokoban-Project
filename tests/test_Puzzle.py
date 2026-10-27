@@ -78,6 +78,32 @@ class TestPuzzleClass(unittest.TestCase):
         p3 = load("smallMixedSymbols.txt")
         p3.findDeadlocks()
         self.assertEqual(p3.deadlocks, {(3, 2), (3, 6)})
+
+
+    def test_reachable_squares(self):
+        p1 = load("small.txt")
+        reachables = p1.allReachableSquares(p1.startState)
+        self.assertEqual(reachables, {(2, 2)})
+        print()
+
+        p2 = load("medium.txt")
+        p2.findDeadlocks()
+        reachables = p2.allReachableSquares(p2.startState)
+        self.assertEqual(reachables, {(7, 7), (7, 6), (6, 7), (6, 6), (5, 7)})
+        # State after Player pushes box at (6,4) to the left, so the box is now at (6,5)
+        leftBoxPushState = State(frozenset({(3, 4), (5, 6), (6, 4)}), (7, 7))    
+        reachables = p2.allReachableSquares(leftBoxPushState)
+        self.assertEqual(reachables, {(7, 7), (7, 6), (6, 7), (6, 6), (5, 7), (6, 5), (5, 5)})
+
+        p3 = load("smallMixedSymbols.txt")
+        reachables = p3.allReachableSquares(p3.startState)
+        self.assertEqual(reachables, {(2, 2), (3, 2)})
+
+        p4 = load("smallBoxOnGoal.txt")
+        reachables = p4.allReachableSquares(p4.startState)
+        self.assertEqual(reachables, {(2, 2), (2, 3)})
+        # Make sure that the function did not include the goal square because a box is on top of it
+        self.assertNotIn((2, 4), reachables) 
         
 
 if __name__ == "__main__":
