@@ -140,8 +140,31 @@ class Puzzle:
     def hasReachedGoal(self, state):             
         pass
 
+    # Use a BFS to find every square that the player of the given state can reach. 
+    # Walls and boxes are not reachable because a player can not go inside of a wall or box.
     def allReachableSquares(self, state):         
-        pass
+        # Initialize a set to hold all reachable squares, and a set to hold all seen squares
+        # Initialize a queue with the player square to start
+        reachableSquares = {state.player}
+        squareQueue = deque([state.player])
+
+        # Run until the queue is empty
+        while squareQueue:
+            # Get the first square and its x and y coordinates
+            currSquare = squareQueue.popleft()
+            currRow, currCol = currSquare
+
+            # For each neighboring square, check that it can be reached and moved into by a player (not a wall or a box)
+            for horDir, verDir in [(-1, 0), (0, 1), (1, 0), (0, -1)]:
+                neighborSquare = (currRow + horDir, currCol + verDir)
+
+                # Add neighboring square to the queue, and the set of reachable squares if it passes as checks
+                if neighborSquare in self.floorSpaces and neighborSquare not in state.boxes and neighborSquare not in reachableSquares:
+                    squareQueue.append(neighborSquare)
+                    reachableSquares.add(neighborSquare)
+
+        # Once found, return the set of reachable squares
+        return reachableSquares
 
     def allPushes(self, state):      
         pass
