@@ -122,7 +122,50 @@ class TestPuzzleClass(unittest.TestCase):
         p2 = load("mediumSolved.txt")
         p2.findDeadlocks()
         self.assertTrue(p2.hasReachedGoal(p2.startState))
-        
+
+
+    def test_all_pushes(self):
+        p1 = load("small.txt")
+        p1.findDeadlocks()
+        pushables = p1.allPushes(p1.startState)
+        self.assertEqual(pushables, {(3, 2): {(1, 0)}})
+        # Player can now only push box into a deadlock
+        deadlockPushState = State(frozenset({(3, 2)}), (4, 2))
+        pushables = p1.allPushes(deadlockPushState)
+        # Make sure that the function does not included pushes in deadlocks
+        self.assertEqual(pushables, {})
+        # Player can now only push box into a wall
+        wallPushState = State(frozenset({(4, 2)}), (2, 2))
+        pushables = p1.allPushes(wallPushState)
+        # Make sure that the function does not included pushes into walls
+        self.assertEqual(pushables, {})
+
+        p2 = load("medium.txt")
+        p2.findDeadlocks()
+        pushables = p2.allPushes(p2.startState)
+        self.assertEqual(pushables, {(5, 6): {(-1, 0)}, (6, 5): {(0, -1)}})
+  
+        p3 = load("smallMixedSymbols.txt")
+        p3.findDeadlocks()
+        pushables = p3.allPushes(p3.startState)
+        self.assertEqual(pushables, {(2, 3): {(0, 1)}, (3, 3): {(0, 1)}})
+        # Only the box at (3,5) can be pushed to the left
+        onlyOneLeftPushableBoxState = State(frozenset({(3, 5)}), (3, 4))
+        pushables = p3.allPushes(onlyOneLeftPushableBoxState)
+        # Make sure the function returns only this one left push
+        self.assertEqual(pushables, {(3, 5): {(0, -1)}})
+        # Now both boxes can no longer be pushed
+        noMorePushesState = State(frozenset({(2, 3), (2, 4)}), (2, 2))
+        pushables = p3.allPushes(noMorePushesState)
+        # Make sure that the function does not any pushes
+        self.assertEqual(pushables, {})
+
+        # Boxes can be pushed off goals too
+        p4 = load("smallBoxOnGoal.txt")
+        p4.findDeadlocks()
+        pushables = p4.allPushes(p4.startState)
+        self.assertEqual(pushables, {(2, 4): {(0, 1)}})
+            
 
 if __name__ == "__main__":
     unittest.main()
