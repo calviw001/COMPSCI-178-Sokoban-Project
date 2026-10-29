@@ -197,11 +197,38 @@ class Puzzle:
         return pushableBoxes
 
 
-    def applyPush(self, state, box, direction): 
-        pass
+    # Returns a new state in which the specified box is pushed a single time in the specified direction and the player
+    # now sits behind the box.
+    def applySinglePush(self, state, box, direction): 
+        # Initialize a set to hold all boxes for the new state
+        # Also make a copy of the box location before it gets moved
+        newBoxes = set()
+        oldbox = box
+
+        # Add every box from the old state and add them to the new state
+        for eachBox in state.boxes:
+            newBox = (0, 0)
+
+            # If a box is the one that is pushed, then move it in the specified direction and add this new box 
+            # location to the set of new boxes instead
+            if eachBox == box:
+                newBox = (box[0] + direction[0], box[1] + direction[1])
+            else:
+                newBox = eachBox
+            newBoxes.add(newBox)
+
+        # Create the player for the new state, which should end up behind the box that what pushed (aka the location of the
+        # box before the push)
+        newPlayer = oldbox
+
+        # Finally, create this new state and return it
+        newState = State(frozenset(newBoxes), newPlayer)
+        return newState
+
 
     def heuristic(self, state):  
         pass
+
 
     def printCurrentPuzzle(self, state):        
         pass
