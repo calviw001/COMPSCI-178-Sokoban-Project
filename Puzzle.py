@@ -137,8 +137,10 @@ class Puzzle:
         self.deadlocks = self.floorSpaces - notDeadlocks
 
 
-    def hasReachedGoal(self, state):             
-        pass
+    # Returns true if all of the boxes are on top of a goal and false otherwise.
+    def hasReachedGoal(self, state):   
+        return self.goals == state.boxes          
+
 
     # Use a BFS to find every square that the player of the given state can reach. 
     # Walls and boxes are not reachable because a player can not go inside of a wall or box.
