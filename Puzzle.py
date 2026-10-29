@@ -1,6 +1,6 @@
 from pathlib import Path
 from State import State
-from collections import deque
+from collections import deque, defaultdict
 
 DIRECTIONS = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 
@@ -170,8 +170,32 @@ class Puzzle:
         # Once found, return the set of reachable squares
         return reachableSquares
 
-    def allPushes(self, state):      
-        pass
+
+    # Use the 'allReachableSquares()' function the find which boxes can be reached and therefore pushed by the player
+    def allPushes(self, state):
+        # Initialize a dict to hold all pushable boxes and directions
+        pushableBoxes = defaultdict(set)
+
+        # First find all squares that the player can reach
+        reachableSquares = self.allReachableSquares(state)   
+
+        # For each box in the given state
+        for box in state.boxes:
+
+            # Look at each side of a box 
+            for horDir, verDir in DIRECTIONS:
+                sideOfBox = (box[0] + horDir, box[1] + verDir)
+                oppositeSideOfBox = (box[0] - horDir, box[1] - verDir)
+
+                # If the player can reach this side of a box, that means the player can move to that side and push the box from
+                # from there
+                if sideOfBox in reachableSquares and oppositeSideOfBox in self.floorSpaces and oppositeSideOfBox not in self.deadlocks and oppositeSideOfBox not in state.boxes:
+                    direction = (oppositeSideOfBox[0] - box[0], oppositeSideOfBox[1] - box[1])
+                    pushableBoxes[box].add(direction)
+
+        # Return all boxes that can be pushed and in what direction these boxes can be pushed in
+        return pushableBoxes
+
 
     def applyPush(self, state, box, direction): 
         pass
