@@ -104,6 +104,24 @@ class TestPuzzleClass(unittest.TestCase):
         self.assertEqual(reachables, {(2, 2), (2, 3)})
         # Make sure that the function did not include the goal square because a box is on top of it
         self.assertNotIn((2, 4), reachables) 
+
+
+    def test_has_reached_goal(self):
+        p1 = load("small.txt")
+        p1.findDeadlocks()
+        self.assertFalse(p1.hasReachedGoal(p1.startState))
+        # Small puzzle now solved
+        p1 = load("smallSolved.txt")
+        p1.findDeadlocks()
+        self.assertTrue(p1.hasReachedGoal(p1.startState))
+
+        p2 = load("medium.txt")
+        p2.findDeadlocks()
+        self.assertFalse(p2.hasReachedGoal(p2.startState))
+        # Medium puzzle now solved
+        p2 = load("mediumSolved.txt")
+        p2.findDeadlocks()
+        self.assertTrue(p2.hasReachedGoal(p2.startState))
         
 
 if __name__ == "__main__":
