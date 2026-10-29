@@ -2,6 +2,8 @@ from pathlib import Path
 from State import State
 from collections import deque
 
+DIRECTIONS = [(-1, 0), (0, 1), (1, 0), (0, -1)]
+
 class Puzzle:
     """
     This class will hold all information about a Sokoban puzzle that stays the same. 
@@ -92,7 +94,7 @@ class Puzzle:
             currentFloorSpaces.add(currSquare)
 
             # Calculate and then add all the neighboring squares to the queue
-            for horDir, verDir in [(-1, 0), (0, 1), (1, 0), (0, -1)]:
+            for horDir, verDir in DIRECTIONS:
                 squareQueue.append((currRow + horDir, currCol + verDir))
 
         # Once the queue is empty, set 'self.floorSpaces' equal to the set of all floors found
@@ -125,7 +127,7 @@ class Puzzle:
             # For each square, imagine that there is a box on it and a player on one of the box's sides.
             # For each neighboring square, analyze whether a player is able to backtrack and pull a box from the current square to one of 
             # the neighboring squares. 
-            for horDir, verDir in [(-1, 0), (0, 1), (1, 0), (0, -1)]:
+            for horDir, verDir in DIRECTIONS:
                 backTrackedBox = (currRow + horDir, currCol + verDir)
                 backTrackedPlayer = (currRow + 2*horDir, currCol + 2*verDir)
 
@@ -157,7 +159,7 @@ class Puzzle:
             currRow, currCol = currSquare
 
             # For each neighboring square, check that it can be reached and moved into by a player (not a wall or a box)
-            for horDir, verDir in [(-1, 0), (0, 1), (1, 0), (0, -1)]:
+            for horDir, verDir in DIRECTIONS:
                 neighborSquare = (currRow + horDir, currCol + verDir)
 
                 # Add neighboring square to the queue, and the set of reachable squares if it passes as checks
