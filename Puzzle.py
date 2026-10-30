@@ -226,6 +226,10 @@ class Puzzle:
         return newState
 
 
+    def normalizeState(self, state):
+        pass
+
+
     def heuristic(self, state):  
         pass
 
