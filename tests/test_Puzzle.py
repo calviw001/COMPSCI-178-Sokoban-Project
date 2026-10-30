@@ -196,6 +196,54 @@ class TestPuzzleClass(unittest.TestCase):
         p4.findDeadlocks()
         newState = p4.applySinglePush(p4.startState, (2, 4), (0, 1))
         self.assertEqual(newState.boxes, frozenset({(2, 5)}))
+
+
+    def test_single_push(self):
+        p1 = load("small.txt")
+        p1.findDeadlocks()
+        reachables = p1.allReachableSquares(p1.startState)
+        normalized = p1.normalizeState(p1.startState)
+        self.assertEqual(normalized.boxes, p1.startState.boxes)
+        self.assertEqual(normalized.player, (2, 2))
+        # The player now pushes the box forward into the goal. The normalized state should then put the player back 
+        # to square (2, 2)
+        newState = p1.applySinglePush(p1.startState, (3, 2), (1, 0))
+        self.assertEqual(newState.player, (2, 2))
+
+        p2 = load("medium.txt")
+        p2.findDeadlocks()
+        reachables = p2.allReachableSquares(p2.startState)
+        normalized = p2.normalizeState(p2.startState)
+        self.assertEqual(normalized.boxes, p2.startState.boxes)
+        self.assertIn(normalized.player, reachables)
+        # Have each state place the player into a different reachable square
+        # After normalizing each state, they should all be eqivalent
+        normalizedStates = {p2.normalizeState(State(p2.startState.boxes, square)) for square in reachables}
+        self.assertEqual(len(normalizedStates), 1)
+        self.assertEqual(normalizedStates, {State(p2.startState.boxes, (5, 7))})
+
+        p3 = load("smallMixedSymbols.txt")
+        p3.findDeadlocks()
+        reachables = p3.allReachableSquares(p3.startState)
+        normalized = p3.normalizeState(p3.startState)
+        self.assertEqual(normalized.boxes, p3.startState.boxes)
+        self.assertIn(normalized.player, reachables)
+        # Normalize two states where one state has the player start at (2, 2) while the other state has the player start at (2, 3) 
+        # The two normalized should equal because the players will have the same reachables region in both states
+        normalized1 = p3.normalizeState(State(p3.startState.boxes, (2, 2)))
+        normalized2 = p3.normalizeState(State(p3.startState.boxes, (3, 2)))
+        self.assertEqual(normalized1, normalized2)
+        self.assertEqual(hash(normalized1), hash(normalized2))
+
+        # # Boxes can be pushed off goals too
+        p4 = load("smallBoxOnGoal.txt")
+        p4.findDeadlocks()
+        reachables = p4.allReachableSquares(p4.startState)
+        normalized = p4.normalizeState(p4.startState)
+        self.assertEqual(normalized.boxes, p4.startState.boxes)
+        self.assertEqual(normalized.player, (2, 2))
+        newState = p4.applySinglePush(p4.startState, (2, 4), (0, 1))
+        self.assertEqual(newState.player, (2, 2))
             
 
 if __name__ == "__main__":
