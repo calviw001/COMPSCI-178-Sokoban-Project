@@ -198,7 +198,7 @@ class TestPuzzleClass(unittest.TestCase):
         self.assertEqual(newState.boxes, frozenset({(2, 5)}))
 
 
-    def test_single_push(self):
+    def test_normalize_state(self):
         p1 = load("small.txt")
         p1.findDeadlocks()
         reachables = p1.allReachableSquares(p1.startState)
