@@ -31,7 +31,7 @@ class TestPuzzleClass(unittest.TestCase):
         self.assertEqual((p2.height, p2.width), (8, 8))
         self.assertEqual(p2.goals, {(2, 2), (5, 7), (7, 4)})
         self.assertEqual(p2.startState.boxes, frozenset({(3, 4), (5, 6), (6, 5)}))
-        self.assertEqual(p2.startState.player, (7, 7))
+        self.assertEqual(p2.startState.player, (5, 7))
         expectedFloors = {
             (2, 2), (2, 3), (2, 5), (2, 6), (2, 7),
             (3, 2), (3, 3), (3, 4), (3, 5), (3, 6), (3, 7),

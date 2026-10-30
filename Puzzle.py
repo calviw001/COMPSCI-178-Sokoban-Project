@@ -70,6 +70,8 @@ class Puzzle:
         self.width = numCols
         self.startState = State(frozenset(boxes), player)
         self.findFloorSpaces()
+        self.startState = self.normalizeState(self.startState)
+
 
     # Use a BFS to find every walkable square/floor of the Sokoban puzzle.
     # Create a set of these floors and set that equal to 'self.floorSpaces.'
@@ -223,11 +225,23 @@ class Puzzle:
 
         # Finally, create this new state and return it
         newState = State(frozenset(newBoxes), newPlayer)
-        return newState
+        return self.normalizeState(newState)
 
 
+    # This function "moves" the player of the current state to the location of the closest, reachable square. Then, it returns
+    # a new state with this new player but same boxes.
+    # By using this function, states with same boxes but the players are located on different squares will now be considered the 
+    # same if the two players have the same reachable squares.
     def normalizeState(self, state):
-        pass
+        # First find all squares that the player can reach
+        reachableSquares = self.allReachableSquares(state) 
+
+        # Make the player stand on the closest, reachable square
+        normalizedPlayer = min(reachableSquares)
+
+        # Create the new normalized state with this new player position and return it
+        newNormalizedState = State(state.boxes, normalizedPlayer)
+        return newNormalizedState
 
 
     def heuristic(self, state):  
