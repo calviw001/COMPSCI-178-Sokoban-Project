@@ -165,6 +165,37 @@ class TestPuzzleClass(unittest.TestCase):
         p4.findDeadlocks()
         pushables = p4.allPushes(p4.startState)
         self.assertEqual(pushables, {(2, 4): {(0, 1)}})
+
+
+    def test_single_push(self):
+        p1 = load("small.txt")
+        p1.findDeadlocks()
+        newState = p1.applySinglePush(p1.startState, (3, 2), (1, 0))
+        self.assertEqual(newState.boxes, {(4, 2)})
+        self.assertTrue(p1.hasReachedGoal(newState))
+
+        p2 = load("medium.txt")
+        p2.findDeadlocks()
+        # Try out each possible box push and box push directions from the start state
+        for box, directions in p2.allPushes(p2.startState).items():
+            for eachDir in directions:
+                newState = p2.applySinglePush(p2.startState, box, eachDir)
+                expectedNewBox = (box[0] + eachDir[0], box[1] + eachDir[1])
+                self.assertEqual(newState.boxes, (p2.startState.boxes - {box}) | {expectedNewBox})
+
+        p3 = load("smallMixedSymbols.txt")
+        p3.findDeadlocks()
+        # Apply a push to both boxes
+        newState = p3.applySinglePush(p3.startState, (2, 3), (0, 1))
+        self.assertEqual(newState.boxes, frozenset({(2, 4), (2, 6), (3, 3)}))
+        newState = p3.applySinglePush(p3.startState, (3, 3), (0, 1))
+        self.assertEqual(newState.boxes, frozenset({(2, 3), (2, 6), (3, 4)}))
+
+        # Boxes can be pushed off goals too
+        p4 = load("smallBoxOnGoal.txt")
+        p4.findDeadlocks()
+        newState = p4.applySinglePush(p4.startState, (2, 4), (0, 1))
+        self.assertEqual(newState.boxes, frozenset({(2, 5)}))
             
 
 if __name__ == "__main__":
