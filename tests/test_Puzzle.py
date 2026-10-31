@@ -259,7 +259,29 @@ class TestPuzzleClass(unittest.TestCase):
         p3.findDeadlocks()
         self.assertEqual(p3.heuristic(p3.startState), 0)
 
-            
 
+    def test_heuristic_on_unsolved_states(self):
+        p1 = load("small.txt")
+        p1.findDeadlocks()
+        self.assertEqual(p1.heuristic(p1.startState), 1)
+
+        p2 = load("medium.txt")
+        p2.findDeadlocks()
+        self.assertEqual(p2.heuristic(p2.startState), 6)
+        # From the start state, push box at (6, 5) to the left
+        pushedLeft = p2.applySinglePush(p2.startState, (6, 5), (0, -1))
+        self.assertEqual(p2.heuristic(pushedLeft), 5)
+        # From the start state, push box at (5, 6) to up
+        pushedUp = p2.applySinglePush(p2.startState, (5, 6), (-1, 0))
+        self.assertEqual(p2.heuristic(pushedUp), 7)
+
+        p3 = load("smallMixedSymbols.txt")
+        p3.findDeadlocks()
+        self.assertEqual(p3.heuristic(p3.startState), 3)
+        # Two out of the three boxes have been solved now
+        newState = State(frozenset({(2, 2), (2, 6), (3, 3)}), (2, 4))
+        self.assertEqual(p3.heuristic(newState), 2)
+
+            
 if __name__ == "__main__":
     unittest.main()
