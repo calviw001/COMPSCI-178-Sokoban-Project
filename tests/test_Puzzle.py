@@ -244,6 +244,21 @@ class TestPuzzleClass(unittest.TestCase):
         self.assertEqual(normalized.player, (2, 2))
         newState = p4.applySinglePush(p4.startState, (2, 4), (0, 1))
         self.assertEqual(newState.player, (2, 2))
+
+
+    def test_heuristic_on_solved_states(self):
+        p1 = load("smallSolved.txt")
+        p1.findDeadlocks()
+        self.assertEqual(p1.heuristic(p1.startState), 0)
+
+        p2 = load("mediumSolved.txt")
+        p2.findDeadlocks()
+        self.assertEqual(p2.heuristic(p2.startState), 0)
+
+        p3 = load("smallMixedSymbolsSolved.txt")
+        p3.findDeadlocks()
+        self.assertEqual(p3.heuristic(p3.startState), 0)
+
             
 
 if __name__ == "__main__":
