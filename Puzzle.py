@@ -1,6 +1,9 @@
 from pathlib import Path
 from State import State
 from collections import deque, defaultdict
+import numpy as np
+from scipy.optimize import linear_sum_assignment
+
 
 DIRECTIONS = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 
@@ -244,8 +247,34 @@ class Puzzle:
         return newNormalizedState
 
 
-    def heuristic(self, state):  
-        pass
+    # Used to compute the minimum-matching heuristic of a state.
+    # For each box and each goal, compute a distance. Then pair each box with a different goal so that the total distance is 
+    # as small as possible.
+    def heuristic(self, state):
+        # Create a list to store the distances for each box to each goal  
+        boxesToGoals = []
+
+        # For each box...
+        for eachBox in state.boxes: 
+            eachBoxToGoals = []
+
+            # Iterate through all the goals for in order to calculate these distance
+            for goal in self.goals:
+
+                # Using manhattan distance for now
+                # If there is more time later, will switch to calculating the actually distances instead
+                distance = abs(eachBox[0] - goal[0]) + abs(eachBox[1] - goal[1])
+                eachBoxToGoals.append(distance)
+
+            # Add the row of each box to goals to the list                
+            boxesToGoals.append(eachBoxToGoals)
+
+        # Finally, use the hungarian algorithm to determine which boxes should pair up with which goals to produce 
+        # the lowest cost total
+        totalCost = np.array(boxesToGoals)
+        rows, cols = linear_sum_assignment(totalCost)
+        heur = totalCost[rows, cols].sum()
+        return int(heur)
 
 
     def printCurrentPuzzle(self, state):        
