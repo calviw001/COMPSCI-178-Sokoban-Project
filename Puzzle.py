@@ -277,5 +277,38 @@ class Puzzle:
         return int(heur)
 
 
+    # Combine the puzzle and the current state together to create the full board, and then print it out.
     def printCurrentPuzzle(self, state):        
-        pass
+        # Create a list of lists to store the Sokoban elements
+        # Fill it in with blank spaces at first
+        currentPuzzle = [[" " for _ in range(self.width)] for _ in range(self.height)]
+
+        # Add each wall
+        for eachWall in self.walls:
+            currentPuzzle[eachWall[0] - 1][eachWall[1] - 1] = "#"
+
+        # Add each goal
+        for eachGoal in self.goals:
+            currentPuzzle[eachGoal[0] - 1][eachGoal[1] - 1] = "."
+
+        # Add each box 
+        for eachBox in state.boxes:
+            if currentPuzzle[eachBox[0] - 1][eachBox[1] - 1] == " ":
+                currentPuzzle[eachBox[0] - 1][eachBox[1] - 1] = "$"
+            else:
+                currentPuzzle[eachBox[0] - 1][eachBox[1] - 1] = "*"    # Box is on a goal square
+
+        # Add the player
+        currPlayer = state.player
+        if currentPuzzle[currPlayer[0] - 1][currPlayer[1] - 1] == " ":
+            currentPuzzle[currPlayer[0] - 1][currPlayer[1] - 1] = "@"
+        else:
+            currentPuzzle[currPlayer[0] - 1][currPlayer[1] - 1] = "+"  # Player is on a goal square
+
+        # Now print out the full puzzle
+        for eachRow in currentPuzzle:
+            print("".join(eachRow))
+        print()
+
+        # Return the full puzzle for testing purposes
+        return currentPuzzle
