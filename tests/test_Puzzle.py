@@ -14,6 +14,17 @@ def load(fileName):
     return puzzle
 
 
+def readBoard(fileName):
+    with open(os.path.join(CURRDIR, "test_puzzles", fileName), "r") as f:
+        lines = [line.rstrip("\n") for line in f]
+    player = None
+    for row, line in enumerate(lines):
+        for col, char in enumerate(line):
+            if char in "@+":
+                player = (row + 1, col + 1)
+    return lines, player
+
+
 class TestPuzzleClass(unittest.TestCase):
 
     def test_parse_small_puzzle(self):
@@ -282,6 +293,18 @@ class TestPuzzleClass(unittest.TestCase):
         newState = State(frozenset({(2, 2), (2, 6), (3, 3)}), (2, 4))
         self.assertEqual(p3.heuristic(newState), 2)
 
-            
+
+    def test_print_current_puzzle(self):
+        for fileName in ["small.txt", "medium.txt", "smallMixedSymbols.txt", "smallBoxOnGoal.txt", "smallSolved.txt", "mediumSolved.txt", "smallMixedSymbolsSolved.txt"]:
+            p1 = load(fileName)
+            p1.findDeadlocks()
+            lines, player = readBoard(fileName)
+            state = State(p1.startState.boxes, player)
+            result = p1.printCurrentPuzzle(state)
+            self.assertEqual(len(result), len(lines))
+            for i in range(len(lines)):
+                self.assertEqual("".join(result[i]), lines[i])
+
+
 if __name__ == "__main__":
     unittest.main()
