@@ -39,9 +39,8 @@ class IDAStar:
             self.deadline = inf
 
         try:
-            # the parsePuzzleFile() function already normalizes the start state
+            # the parsePuzzleFile() function already normalizes the start state and finds deadlocks
             start_state = self.puzzle.startState        
-            self.puzzle.findDeadlocks()
 
             # check deadlock before start
             if start_state.boxes & self.puzzle.deadlocks:
