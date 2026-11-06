@@ -74,6 +74,7 @@ class Puzzle:
         self.startState = State(frozenset(boxes), player)
         self.findFloorSpaces()
         self.startState = self.normalizeState(self.startState)
+        self.findDeadlocks()
 
 
     # Use a BFS to find every walkable square/floor of the Sokoban puzzle.
@@ -146,7 +147,7 @@ class Puzzle:
 
     # Returns true if all of the boxes are on top of a goal and false otherwise.
     def hasReachedGoal(self, state):   
-        return self.goals == state.boxes          
+        return state.boxes <= self.goals         
 
 
     # Use a BFS to find every square that the player of the given state can reach. 

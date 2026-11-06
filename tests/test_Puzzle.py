@@ -71,11 +71,9 @@ class TestPuzzleClass(unittest.TestCase):
 
     def test_find_deadlocks(self):
         p1 = load("small.txt")
-        p1.findDeadlocks()
         self.assertEqual(p1.deadlocks, {(2, 2)})
 
         p2 = load("medium.txt")
-        p2.findDeadlocks()
         expectedDeadlocks = {
             (2, 3), (2, 5), (2, 6), (2, 7),
             (3, 7),
@@ -87,7 +85,6 @@ class TestPuzzleClass(unittest.TestCase):
         self.assertEqual(p2.deadlocks, expectedDeadlocks)
 
         p3 = load("smallMixedSymbols.txt")
-        p3.findDeadlocks()
         self.assertEqual(p3.deadlocks, {(3, 2), (3, 6)})
 
 
@@ -98,7 +95,6 @@ class TestPuzzleClass(unittest.TestCase):
         print()
 
         p2 = load("medium.txt")
-        p2.findDeadlocks()
         reachables = p2.allReachableSquares(p2.startState)
         self.assertEqual(reachables, {(7, 7), (7, 6), (6, 7), (6, 6), (5, 7)})
         # State after Player pushes box at (6,4) to the left, so the box is now at (6,5)
@@ -119,25 +115,20 @@ class TestPuzzleClass(unittest.TestCase):
 
     def test_has_reached_goal(self):
         p1 = load("small.txt")
-        p1.findDeadlocks()
         self.assertFalse(p1.hasReachedGoal(p1.startState))
         # Small puzzle now solved
         p1 = load("smallSolved.txt")
-        p1.findDeadlocks()
         self.assertTrue(p1.hasReachedGoal(p1.startState))
 
         p2 = load("medium.txt")
-        p2.findDeadlocks()
         self.assertFalse(p2.hasReachedGoal(p2.startState))
         # Medium puzzle now solved
         p2 = load("mediumSolved.txt")
-        p2.findDeadlocks()
         self.assertTrue(p2.hasReachedGoal(p2.startState))
 
 
     def test_all_pushes(self):
         p1 = load("small.txt")
-        p1.findDeadlocks()
         pushables = p1.allPushes(p1.startState)
         self.assertEqual(pushables, {(3, 2): {(1, 0)}})
         # Player can now only push box into a deadlock
@@ -152,12 +143,10 @@ class TestPuzzleClass(unittest.TestCase):
         self.assertEqual(pushables, {})
 
         p2 = load("medium.txt")
-        p2.findDeadlocks()
         pushables = p2.allPushes(p2.startState)
         self.assertEqual(pushables, {(5, 6): {(-1, 0)}, (6, 5): {(0, -1)}})
   
         p3 = load("smallMixedSymbols.txt")
-        p3.findDeadlocks()
         pushables = p3.allPushes(p3.startState)
         self.assertEqual(pushables, {(2, 3): {(0, 1)}, (3, 3): {(0, 1)}})
         # Only the box at (3,5) can be pushed to the left
@@ -173,20 +162,17 @@ class TestPuzzleClass(unittest.TestCase):
 
         # Boxes can be pushed off goals too
         p4 = load("smallBoxOnGoal.txt")
-        p4.findDeadlocks()
         pushables = p4.allPushes(p4.startState)
         self.assertEqual(pushables, {(2, 4): {(0, 1)}})
 
 
     def test_single_push(self):
         p1 = load("small.txt")
-        p1.findDeadlocks()
         newState = p1.applySinglePush(p1.startState, (3, 2), (1, 0))
         self.assertEqual(newState.boxes, {(4, 2)})
         self.assertTrue(p1.hasReachedGoal(newState))
 
         p2 = load("medium.txt")
-        p2.findDeadlocks()
         # Try out each possible box push and box push directions from the start state
         for box, directions in p2.allPushes(p2.startState).items():
             for eachDir in directions:
@@ -195,7 +181,6 @@ class TestPuzzleClass(unittest.TestCase):
                 self.assertEqual(newState.boxes, (p2.startState.boxes - {box}) | {expectedNewBox})
 
         p3 = load("smallMixedSymbols.txt")
-        p3.findDeadlocks()
         # Apply a push to both boxes
         newState = p3.applySinglePush(p3.startState, (2, 3), (0, 1))
         self.assertEqual(newState.boxes, frozenset({(2, 4), (2, 6), (3, 3)}))
@@ -204,14 +189,12 @@ class TestPuzzleClass(unittest.TestCase):
 
         # Boxes can be pushed off goals too
         p4 = load("smallBoxOnGoal.txt")
-        p4.findDeadlocks()
         newState = p4.applySinglePush(p4.startState, (2, 4), (0, 1))
         self.assertEqual(newState.boxes, frozenset({(2, 5)}))
 
 
     def test_normalize_state(self):
         p1 = load("small.txt")
-        p1.findDeadlocks()
         reachables = p1.allReachableSquares(p1.startState)
         normalized = p1.normalizeState(p1.startState)
         self.assertEqual(normalized.boxes, p1.startState.boxes)
@@ -222,7 +205,6 @@ class TestPuzzleClass(unittest.TestCase):
         self.assertEqual(newState.player, (2, 2))
 
         p2 = load("medium.txt")
-        p2.findDeadlocks()
         reachables = p2.allReachableSquares(p2.startState)
         normalized = p2.normalizeState(p2.startState)
         self.assertEqual(normalized.boxes, p2.startState.boxes)
@@ -234,7 +216,6 @@ class TestPuzzleClass(unittest.TestCase):
         self.assertEqual(normalizedStates, {State(p2.startState.boxes, (5, 7))})
 
         p3 = load("smallMixedSymbols.txt")
-        p3.findDeadlocks()
         reachables = p3.allReachableSquares(p3.startState)
         normalized = p3.normalizeState(p3.startState)
         self.assertEqual(normalized.boxes, p3.startState.boxes)
@@ -248,7 +229,6 @@ class TestPuzzleClass(unittest.TestCase):
 
         # # Boxes can be pushed off goals too
         p4 = load("smallBoxOnGoal.txt")
-        p4.findDeadlocks()
         reachables = p4.allReachableSquares(p4.startState)
         normalized = p4.normalizeState(p4.startState)
         self.assertEqual(normalized.boxes, p4.startState.boxes)
@@ -259,25 +239,20 @@ class TestPuzzleClass(unittest.TestCase):
 
     def test_heuristic_on_solved_states(self):
         p1 = load("smallSolved.txt")
-        p1.findDeadlocks()
         self.assertEqual(p1.heuristic(p1.startState), 0)
 
         p2 = load("mediumSolved.txt")
-        p2.findDeadlocks()
         self.assertEqual(p2.heuristic(p2.startState), 0)
 
         p3 = load("smallMixedSymbolsSolved.txt")
-        p3.findDeadlocks()
         self.assertEqual(p3.heuristic(p3.startState), 0)
 
 
     def test_heuristic_on_unsolved_states(self):
         p1 = load("small.txt")
-        p1.findDeadlocks()
         self.assertEqual(p1.heuristic(p1.startState), 1)
 
         p2 = load("medium.txt")
-        p2.findDeadlocks()
         self.assertEqual(p2.heuristic(p2.startState), 6)
         # From the start state, push box at (6, 5) to the left
         pushedLeft = p2.applySinglePush(p2.startState, (6, 5), (0, -1))
@@ -287,7 +262,6 @@ class TestPuzzleClass(unittest.TestCase):
         self.assertEqual(p2.heuristic(pushedUp), 7)
 
         p3 = load("smallMixedSymbols.txt")
-        p3.findDeadlocks()
         self.assertEqual(p3.heuristic(p3.startState), 3)
         # Two out of the three boxes have been solved now
         newState = State(frozenset({(2, 2), (2, 6), (3, 3)}), (2, 4))
@@ -297,7 +271,6 @@ class TestPuzzleClass(unittest.TestCase):
     def test_print_current_puzzle(self):
         for fileName in ["small.txt", "medium.txt", "smallMixedSymbols.txt", "smallBoxOnGoal.txt", "smallSolved.txt", "mediumSolved.txt", "smallMixedSymbolsSolved.txt"]:
             p1 = load(fileName)
-            p1.findDeadlocks()
             lines, player = readBoard(fileName)
             state = State(p1.startState.boxes, player)
             result = p1.printCurrentPuzzle(state)
