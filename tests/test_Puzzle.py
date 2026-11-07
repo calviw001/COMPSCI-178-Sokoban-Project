@@ -269,7 +269,7 @@ class TestPuzzleClass(unittest.TestCase):
 
 
     def test_print_current_puzzle(self):
-        for fileName in ["small.txt", "medium.txt", "smallMixedSymbols.txt", "smallBoxOnGoal.txt", "smallSolved.txt", "mediumSolved.txt", "smallMixedSymbolsSolved.txt"]:
+        for fileName in ["small.txt", "medium.txt", "smallMixedSymbols.txt", "smallBoxOnGoal.txt", "smallSolved.txt", "mediumSolved.txt", "smallMixedSymbolsSolved.txt", "smallDetour.txt"]:
             p1 = load(fileName)
             lines, player = readBoard(fileName)
             state = State(p1.startState.boxes, player)
@@ -277,6 +277,28 @@ class TestPuzzleClass(unittest.TestCase):
             self.assertEqual(len(result), len(lines))
             for i in range(len(lines)):
                 self.assertEqual("".join(result[i]), lines[i])
+
+
+    def test_can_go_straight_into_goal(self):
+        p1 = load("small.txt")
+        self.assertTrue(p1.canGoStraightIntoGoal(p1.startState, (3, 2), (1, 0)))     
+
+        p2 = load("smallDetour.txt")             
+        # Box will run into a wall if pushed right                             
+        self.assertFalse(p2.canGoStraightIntoGoal(p2.startState, (3, 4), (0, 1)))  
+        # Box can now be pushed stright up into a goal
+        goalBoundState = State(frozenset({(3, 6)}), (2, 2))   
+        self.assertTrue(p2.canGoStraightIntoGoal(goalBoundState, (3, 6), (-1, 0))) 
+
+        p3 = load("medium.txt")
+        # Both legal start pushes run into a wall before any goal
+        self.assertFalse(p3.canGoStraightIntoGoal(p3.startState, (5, 6), (-1, 0)))
+        self.assertFalse(p3.canGoStraightIntoGoal(p3.startState, (6, 5), (0, -1)))
+
+        p4 = load("smallMixedSymbols.txt")
+        # First box has a box in the way, while the second box is all good
+        self.assertFalse(p4.canGoStraightIntoGoal(p4.startState, (2, 3), (0, 1)))
+        self.assertTrue(p4.canGoStraightIntoGoal(p4.startState, (3, 3), (0, 1)))
 
 
 if __name__ == "__main__":
