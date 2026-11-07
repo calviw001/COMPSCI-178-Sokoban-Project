@@ -178,7 +178,7 @@ class Puzzle:
 
 
     # Use the 'allReachableSquares()' function the find which boxes can be reached and therefore pushed by the player
-    def allPushes(self, state):
+    def allPushes(self, state, useDeadlocks=True):
         # Initialize a dict to hold all pushable boxes and directions
         pushableBoxes = defaultdict(set)
 
@@ -195,7 +195,7 @@ class Puzzle:
 
                 # If the player can reach this side of a box, that means the player can move to that side and push the box from
                 # from there
-                if sideOfBox in reachableSquares and oppositeSideOfBox in self.floorSpaces and oppositeSideOfBox not in self.deadlocks and oppositeSideOfBox not in state.boxes:
+                if sideOfBox in reachableSquares and oppositeSideOfBox in self.floorSpaces and (not useDeadlocks or oppositeSideOfBox not in self.deadlocks) and oppositeSideOfBox not in state.boxes:
                     direction = (oppositeSideOfBox[0] - box[0], oppositeSideOfBox[1] - box[1])
                     pushableBoxes[box].add(direction)
 
