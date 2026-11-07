@@ -232,6 +232,28 @@ class Puzzle:
         return self.normalizeState(newState)
 
 
+    # Returns True if a box can reach a goal by continuing to move in the same direction, and False otherwise
+    def canGoStraightIntoGoal(self, state, box, direction):
+        box = (box[0] + direction[0], box[1] + direction[1])
+
+        # While the box is on a floor space
+        while(box in self.floorSpaces):
+
+            # Return False if the box has bit another box, went into a deadlock, or smashed into wall
+            if box in state.boxes or box in self.deadlocks or box in self.walls:
+                return False
+
+            # Break out the loop if the box is on a goal
+            elif box in self.goals:
+                break
+
+            # Continuing moving the box if none of the previous checks were true
+            box = (box[0] + direction[0], box[1] + direction[1])
+
+        # Perform one final check to make sure the box is on a goal or not
+        return box in self.goals
+
+
     # This function "moves" the player of the current state to the location of the closest, reachable square. Then, it returns
     # a new state with this new player but same boxes.
     # By using this function, states with same boxes but the players are located on different squares will now be considered the 
