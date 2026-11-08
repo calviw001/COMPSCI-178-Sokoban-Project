@@ -4,7 +4,7 @@ from collections import deque, defaultdict
 import numpy as np
 from scipy.optimize import linear_sum_assignment
 
-
+# Up, Right, Down, Left
 DIRECTIONS = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 
 class Puzzle:
@@ -268,6 +268,55 @@ class Puzzle:
         # Create the new normalized state with this new player position and return it
         newNormalizedState = State(state.boxes, normalizedPlayer)
         return newNormalizedState
+
+
+    def isFrozenDeadlock(self, state, movedBox):
+
+        def isStuckAlongAxes(state, box, assumedStuck):
+            assumedStuck.add(box)
+
+            # Examine both the horizontal and vertical axes
+            for i in range(2):
+                canNotMoveAlongThisAxis = False
+
+                # Get the two opposing directions (Up and Down first, Right and Left second) 
+                dir1 = DIRECTIONS[i]
+                dir2 = DIRECTIONS[i + 2]
+
+                # Look at both sides of a box in the given axis
+                side1 = (box[0] + dir1[0], box[1] + dir1[1])
+                side2 = (box[0] + dir2[0], box[1] + dir2[1])
+
+                # A wall blocks the box from moving along this axis
+                if side1 not in self.floorSpaces or side2 not in self.floorSpaces:
+                    canNotMoveAlongThisAxis = True
+
+                # A deadlock blocks the box from moving along this axis
+                elif side1 in self.deadlocks and side2 in self.deadlocks:
+                    canNotMoveAlongThisAxis = True
+
+                # One of the sides sits another box that is stuck, so it blocks the path along the axis
+                elif side1 in state.boxes and (side1 in assumedStuck or isStuckAlongAxes(state, side1, assumedStuck)):
+                    canNotMoveAlongThisAxis = True
+                elif side2 in state.boxes and (side2 in assumedStuck or isStuckAlongAxes(state, side2, assumedStuck)):
+                    canNotMoveAlongThisAxis = True
+
+                # If a box failed all the previous checks, then that means the box can move freely along at least one axis
+                if not canNotMoveAlongThisAxis:
+                    assumedStuck.discard(box)
+                    return False
+
+            # If a box passed at least one previou checks for both axes, then that means the box cannot move along either axis
+            return True
+
+        # Return false if the moved box is not stuck
+        setOfStuckBoxes = set()
+        if not isStuckAlongAxes(state, movedBox, setOfStuckBoxes):
+            return False
+
+        # Else, return true
+        # Do not include stuck boxes that are on a goal because boxes are supposed to be on a goal
+        return any(box not in self.goals for box in setOfStuckBoxes)
 
 
     # Used to compute the minimum-matching heuristic of a state.
