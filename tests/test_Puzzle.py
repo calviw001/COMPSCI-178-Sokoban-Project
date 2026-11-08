@@ -25,6 +25,13 @@ def readBoard(fileName):
     return lines, player
 
 
+def loadEmptyPuzzle(goals=(), deadlocks=()):
+    p = load("emptyPuzzle.txt")
+    p.goals = set(goals)
+    p.deadlocks = set(deadlocks) 
+    return p
+
+
 class TestPuzzleClass(unittest.TestCase):
 
     def test_parse_small_puzzle(self):
@@ -299,6 +306,70 @@ class TestPuzzleClass(unittest.TestCase):
         # First box has a box in the way, while the second box is all good
         self.assertFalse(p4.canGoStraightIntoGoal(p4.startState, (2, 3), (0, 1)))
         self.assertTrue(p4.canGoStraightIntoGoal(p4.startState, (3, 3), (0, 1)))
+
+
+    def test_is_frozen_deadlock_with_two_boxes_against_wall_and_with_2x2_block(self):
+        # Two boxes side by side against a wall tests:
+
+        p1 = loadEmptyPuzzle()
+        state = State(frozenset(((2, 4), (2, 5))), (5, 8)) 
+        self.assertTrue(p1.isFrozenDeadlock(state, (2, 5)))
+        self.assertTrue(p1.isFrozenDeadlock(state, (2, 4)))
+
+        # Frozen but both on goals: exactly where they should be, so no deadlock
+        p2 = loadEmptyPuzzle(goals={(2, 4), (2, 5)})
+        self.assertFalse(p2.isFrozenDeadlock(state, (2, 5)))
+
+        # Frozen with only one on a goal: the other is stuck off its goal, so deadlock
+        p3 = loadEmptyPuzzle(goals={(2, 4)})
+        self.assertTrue(p3.isFrozenDeadlock(state, (2, 5)))
+
+        # 2x2 block tests:
+
+        p4 = loadEmptyPuzzle()
+        state = State(frozenset(((3, 4), (3, 5), (4, 4), (4, 5))), (5, 8))
+        self.assertTrue(p4.isFrozenDeadlock(state, (4, 5)))
+
+        # All four are on boxes this time, so no deadlock
+        p5 = loadEmptyPuzzle(goals={(3, 4), (3, 5), (4, 4), (4, 5)})
+        self.assertFalse(p5.isFrozenDeadlock(state, (4, 5)))\
+        
+        # Three of four boxes are on goals, which still leaves one frozen box
+        p6 = loadEmptyPuzzle(goals={(3, 4), (3, 5), (4, 4)})
+        self.assertTrue(p6.isFrozenDeadlock(state, (4, 5)))
+
+
+    def test_is_frozen_deadlock_with_single_box_and_adjacent_boxes_and_unfrozen_neighbor(self):
+        # Single box against a wall can still slide
+        p1 = loadEmptyPuzzle()
+        state = State(frozenset(((2, 5))), (5, 8))
+        self.assertFalse(p1.isFrozenDeadlock(state, (2, 5)))
+
+        # Single box is simply placed around the center of the puzzle with nothing blocking it
+        state = State(frozenset(((4, 5))), (5, 8))
+        self.assertFalse(p1.isFrozenDeadlock(state, (4, 5)))      # open floor
+
+        # Adjacent boxes side by side can still be pushed vertically if not against a wall
+        p2 = loadEmptyPuzzle()
+        state = State(frozenset(((3, 4), (3, 5))), (5, 8))
+        self.assertFalse(p2.isFrozenDeadlock(state, (3, 5)))
+
+        # (3,5) and (4,5) are frozen by the dead squares beside them and both sit on goals.
+        # (2,5) is above them but is free to slide sideways, so it is NOT frozen.
+        p3 = loadEmptyPuzzle(goals={(3, 5), (4, 5)}, deadlocks={(3, 4), (3, 6), (4, 4), (4, 6)})
+        state = State(frozenset(((2, 5), (3, 5), (4, 5))), (5, 8))
+        self.assertFalse(p3.isFrozenDeadlock(state, (3, 5)))
+
+
+    def test_is_frozen_deadlock_with_surrounding_deadlocks(self):
+        # Box should be frozen when there are deadlocks along both horizontal sides and both vertical sides
+        p1 = loadEmptyPuzzle(deadlocks={(3, 4), (3, 6), (2, 5), (4, 5)})
+        state = State(frozenset(((3, 5))), (5, 8))
+        self.assertTrue(p1.isFrozenDeadlock(state, (3, 5)))
+
+        # If only one side on an axis has deadlocks, then that still leaves the box free to move the other way
+        p2 = loadEmptyPuzzle(deadlocks={(3, 4)})
+        self.assertFalse(p2.isFrozenDeadlock(state, (3, 5)))
 
 
 if __name__ == "__main__":
