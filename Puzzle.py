@@ -1,6 +1,7 @@
 from pathlib import Path
 from State import State
 from collections import deque, defaultdict
+from math import inf
 import numpy as np
 from scipy.optimize import linear_sum_assignment
 
@@ -22,6 +23,7 @@ class Puzzle:
         self.deadlocks = set()        # dead squares, filled by findDeadlocks()
         self.floorSpaces = set()      # walkable squares located within a puzzle, does not count squares outside of walls, 
                                       # filled by findFloorSpaces()
+        self._goal_push_distances = {}
         self.startState = start
 
     # Read in a Sokoban puzzle in the form of a text file. Parse each line of the file in order to extract the 
@@ -73,6 +75,7 @@ class Puzzle:
         self.width = numCols
         self.startState = State(frozenset(boxes), player)
         self.findFloorSpaces()
+        self._computeGoalPushDistances()
         self.startState = self.normalizeState(self.startState)
 
 
@@ -142,6 +145,54 @@ class Puzzle:
 
         # Once the queue is empty, set 'self.deadlocks' equal to the set of all floors minus the set of all non-deadlock squares
         self.deadlocks = self.floorSpaces - notDeadlocks
+
+
+    def _computeGoalPushDistances(self):
+        """Precompute static minimum push counts from every floor to each goal.
+
+        The reverse search only permits a predecessor when both the previous
+        box square and the square needed by the pushing player are floor.
+        Other boxes are ignored, so these distances remain an admissible lower
+        bound for the full puzzle.
+        """
+        self._goal_push_distances = {}
+        for goal in self.goals:
+            distances = {goal: 0}
+            queue = deque([goal])
+            while queue:
+                row, col = queue.popleft()
+                for dr, dc in DIRECTIONS:
+                    previous_box = (row - dr, col - dc)
+                    player_support = (row - 2 * dr, col - 2 * dc)
+                    if (previous_box in self.floorSpaces
+                            and player_support in self.floorSpaces
+                            and previous_box not in distances):
+                        distances[previous_box] = distances[(row, col)] + 1
+                        queue.append(previous_box)
+            self._goal_push_distances[goal] = distances
+
+
+    def isDeadlocked(self, state):
+        """Return whether a box is statically or conservatively 2x2 deadlocked."""
+        if state.boxes & self.deadlocks:
+            return True
+
+        occupied = self.walls | set(state.boxes)
+        for row, col in state.boxes:
+            # Any 2x2 block containing this box can establish a freeze when
+            # every cell is a wall or box. At least one trapped box must be
+            # off-goal for the block to make the state unsolvable.
+            for top in (row - 1, row):
+                for left in (col - 1, col):
+                    block = {
+                        (top, left), (top, left + 1),
+                        (top + 1, left), (top + 1, left + 1),
+                    }
+                    if block <= occupied and any(
+                        box not in self.goals for box in block & state.boxes
+                    ):
+                        return True
+        return False
 
 
     # Returns true if all of the boxes are on top of a goal and false otherwise.
@@ -252,6 +303,11 @@ class Puzzle:
     # as small as possible.
     def heuristic(self, state):
         # Create a list to store the distances for each box to each goal  
+        if len(state.boxes) != len(self.goals):
+            return inf
+        if not self._goal_push_distances and self.goals:
+            self._computeGoalPushDistances()
+
         boxesToGoals = []
 
         # For each box...
@@ -261,9 +317,7 @@ class Puzzle:
             # Iterate through all the goals for in order to calculate these distance
             for goal in self.goals:
 
-                # Using manhattan distance for now
-                # If there is more time later, will switch to calculating the actually distances instead
-                distance = abs(eachBox[0] - goal[0]) + abs(eachBox[1] - goal[1])
+                distance = self._goal_push_distances.get(goal, {}).get(eachBox, inf)
                 eachBoxToGoals.append(distance)
 
             # Add the row of each box to goals to the list                
@@ -271,8 +325,19 @@ class Puzzle:
 
         # Finally, use the hungarian algorithm to determine which boxes should pair up with which goals to produce 
         # the lowest cost total
-        totalCost = np.array(boxesToGoals)
-        rows, cols = linear_sum_assignment(totalCost)
+        if not boxesToGoals:
+            return 0
+        totalCost = np.asarray(boxesToGoals, dtype=float)
+        # SciPy raises if no complete finite assignment exists. Treat such a
+        # state as an unsolvable lower-bound infinity instead.
+        finite_costs = totalCost[np.isfinite(totalCost)]
+        if finite_costs.size == 0:
+            return inf
+        penalty = (finite_costs.max() + 1) * (len(state.boxes) + len(self.goals) + 1)
+        assignment_cost = np.where(np.isfinite(totalCost), totalCost, penalty)
+        rows, cols = linear_sum_assignment(assignment_cost)
+        if not np.isfinite(totalCost[rows, cols]).all():
+            return inf
         heur = totalCost[rows, cols].sum()
         return int(heur)
 

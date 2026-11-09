@@ -34,7 +34,7 @@ class IDAStar:
         try:
             self.puzzle.findDeadlocks()
             start_state = self.puzzle.normalizeState(self.puzzle.startState)
-            if start_state.boxes & self.puzzle.deadlocks:
+            if self.puzzle.isDeadlocked(start_state):
                 return None
 
             threshold = self.puzzle.heuristic(start_state)
@@ -57,6 +57,8 @@ class IDAStar:
 
     def _search(self, state, pushes, threshold):
         self._check_time()
+        if self.puzzle.isDeadlocked(state):
+            return inf
         estimated_total = pushes + self.puzzle.heuristic(state)
         if estimated_total > threshold:
             return estimated_total
