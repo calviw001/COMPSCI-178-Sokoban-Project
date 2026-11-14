@@ -270,6 +270,9 @@ class Puzzle:
         return newNormalizedState
 
 
+    # Some box can become frozen during the puzzle solving process. These types of deadlocks are not static.
+    # This function serves to anaylze the current state and see whether the most recently moved box has become frozen in one 
+    # of these dynamic deadlocks.
     def isFrozenDeadlock(self, state, movedBox):
 
         def isStuckAlongAxes(state, box, assumedStuck):
