@@ -14,7 +14,7 @@ class Puzzle:
     and the starting state of the puzzle. 
     """
 
-    def __init__(self, height=0, width=0, walls=set(), goals=set(), start=None):
+    def __init__(self, height=0, width=0, walls=set(), goals=set(), useDeadlocks=True, sortStates=True, checkFrozenBox=True, start=None):
         self.height = height
         self.width = width
         self.walls = walls
@@ -23,6 +23,9 @@ class Puzzle:
         self.floorSpaces = set()      # walkable squares located within a puzzle, does not count squares outside of walls, 
                                       # filled by findFloorSpaces()
         self.startState = start
+        self.useDeadlocks = useDeadlocks
+        self.sortStates = sortStates
+        self.checkFrozenBox = checkFrozenBox
 
     # Read in a Sokoban puzzle in the form of a text file. Parse each line of the file in order to extract the 
     # x and y coordinates of the different Sokoban elements and add that information to the Puzzle class.
@@ -178,7 +181,7 @@ class Puzzle:
 
 
     # Use the 'allReachableSquares()' function the find which boxes can be reached and therefore pushed by the player
-    def allPushes(self, state, useDeadlocks=True):
+    def allPushes(self, state):
         # Initialize a dict to hold all pushable boxes and directions
         pushableBoxes = defaultdict(set)
 
@@ -193,9 +196,9 @@ class Puzzle:
                 sideOfBox = (box[0] + horDir, box[1] + verDir)
                 oppositeSideOfBox = (box[0] - horDir, box[1] - verDir)
 
-                # If the player can reach this side of a box, that means the player can move to that side and push the box from
-                # from there
-                if sideOfBox in reachableSquares and oppositeSideOfBox in self.floorSpaces and (not useDeadlocks or oppositeSideOfBox not in self.deadlocks) and oppositeSideOfBox not in state.boxes:
+                # If the player can reach this side of a box, that means the player can move to that side and push the box from there
+                # Then, the opposite side of the box should be a floor, should not be another box, and should not be a deadlock
+                if sideOfBox in reachableSquares and oppositeSideOfBox in self.floorSpaces and (not self.useDeadlocks or oppositeSideOfBox not in self.deadlocks) and oppositeSideOfBox not in state.boxes:
                     direction = (oppositeSideOfBox[0] - box[0], oppositeSideOfBox[1] - box[1])
                     pushableBoxes[box].add(direction)
 
@@ -239,8 +242,8 @@ class Puzzle:
         # While the box is on a floor space
         while(box in self.floorSpaces):
 
-            # Return False if the box has bit another box, went into a deadlock, or smashed into wall
-            if box in state.boxes or box in self.deadlocks or box in self.walls:
+            # Return False if the box has hit another box, went into a deadlock, or smashed into wall
+            if box in state.boxes or (self.useDeadlocks and box in self.deadlocks) or box in self.walls:
                 return False
 
             # Break out the loop if the box is on a goal
@@ -295,7 +298,7 @@ class Puzzle:
                     canNotMoveAlongThisAxis = True
 
                 # A deadlock blocks the box from moving along this axis
-                elif side1 in self.deadlocks and side2 in self.deadlocks:
+                elif self.useDeadlocks and side1 in self.deadlocks and side2 in self.deadlocks:
                     canNotMoveAlongThisAxis = True
 
                 # One of the sides sits another box that is stuck, so it blocks the path along the axis

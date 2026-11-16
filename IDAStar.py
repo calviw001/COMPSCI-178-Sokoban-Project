@@ -43,7 +43,7 @@ class IDAStar:
             start_state = self.puzzle.startState        
 
             # check deadlock before start
-            if start_state.boxes & self.puzzle.deadlocks:
+            if (start_state.boxes & self.puzzle.deadlocks) and self.puzzle.useDeadlocks:
                 return None
             
             # first threshold = h
@@ -100,23 +100,31 @@ class IDAStar:
 
         # find straight pushes first
         # sort each moves with position,direction
-        straight_moves = []
-        other_moves = []
-        for box in sorted(pushes):
-            for direction in sorted(pushes[box]):
-                if self.puzzle.canGoStraightIntoGoal(state, box, direction):
-                    straight_moves.append((box, direction))
-                else:
-                    other_moves.append((box, direction))
+        if self.puzzle.sortStates:
+            straight_moves = []
+            other_moves = []
+            for box in sorted(pushes):
+                for direction in sorted(pushes[box]):
+                    if self.puzzle.canGoStraightIntoGoal(state, box, direction):
+                        straight_moves.append((box, direction))
+                    else:
+                        other_moves.append((box, direction))
 
-        # all moves: straight pushes first and other moves
-        all_moves = straight_moves + other_moves
+            # all moves: straight pushes first and other moves
+            all_moves = straight_moves + other_moves
+            
+        else:
+            all_moves = []
+            for box in pushes:
+                for direction in pushes[box]:
+                    all_moves.append((box, direction))
 
         for box, direction in all_moves:
             #check stuck
             next_state = self.puzzle.applySinglePush(state, box, direction)
             moved_box = (box[0]+direction[0], box[1]+direction[1])
-            if self.puzzle.isFrozenDeadlock(next_state, moved_box):
+
+            if self.puzzle.checkFrozenBox and self.puzzle.isFrozenDeadlock(next_state, moved_box):
                 continue
 
             self.push_sequence.append((box, direction))
