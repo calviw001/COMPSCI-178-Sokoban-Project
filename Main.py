@@ -45,23 +45,32 @@ def main():
         parser.error(f"File or folder does not exist: {target}")
 
     # solve each file
+    solved_files = []
     for puzzle_file in files:
         print(f"\n=== {puzzle_file} ===", flush=True)
 
         try:
             solve_file(puzzle_file, args.time_limit)
-
+            solved_files.append(puzzle_file.name)
         except (OSError, UnicodeError, ValueError) as error:
             print(f"Could not solve {puzzle_file.name}: {error}")
             if len(files) == 1:
                 raise SystemExit(1)
+            
+    for each in solved_files:
+        print(each)
 
 
-def solve_file(puzzle_file, time_limit=None):
+def solve_file(puzzle_file, time_limit=None, quiet=False):
     """Print the initial board and each solution push for one input file."""
     board_text = puzzle_file.read_text()
     puzzle = Puzzle()
     puzzle.parsePuzzleFile(puzzle_file)
+
+    puzzle.useDeadlocks = True
+    puzzle.sortStates = True
+    puzzle.checkFrozenBox = True
+    quiet = True
 
     # print original board
     print("Initial board:")
@@ -86,8 +95,9 @@ def solve_file(puzzle_file, time_limit=None):
                 next_state = puzzle.applySinglePush(state, box, direction)
                 # player ends at the old box position
                 state = State(next_state.boxes, box)
-                print(f"Step {step}:")
-                puzzle.printCurrentPuzzle(state)
+                if not quiet:
+                    print(f"Step {step}:")
+                    puzzle.printCurrentPuzzle(state)
             print(f"Solved: {len(solution)} pushes")
 
     print(f"Expanded states: {solver.nodes_expanded}")
