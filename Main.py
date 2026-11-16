@@ -1,19 +1,28 @@
 import argparse
 from pathlib import Path
 
+from BreadthFirstSearch import BreadthFirstSearch
 from IDAStar import IDAStar
 from Puzzle import Puzzle
 
 
-def solve_file(puzzle_path, time_limit=None):
+SOLVERS = {
+    "bfs": BreadthFirstSearch,
+    "idastar": IDAStar,
+}
+
+
+def solve_file(puzzle_path, time_limit=None, algorithm="idastar"):
     puzzle = Puzzle()
     puzzle.parsePuzzleFile(puzzle_path)
-    solver = IDAStar(puzzle, time_limit=time_limit)
+    solver = SOLVERS[algorithm](puzzle, time_limit=time_limit)
 
     print(f"Puzzle: {puzzle_path}")
+    print(f"Algorithm: {algorithm}")
     print("Initial board:")
     puzzle.printCurrentPuzzle(puzzle.startState)
 
+    solution = None
     try:
         solution = solver.solve()
     except TimeoutError:
@@ -35,8 +44,14 @@ def solve_file(puzzle_path, time_limit=None):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Solve a Sokoban puzzle with IDA*")
+    parser = argparse.ArgumentParser(description="Solve a Sokoban puzzle")
     parser.add_argument("path", type=Path, help="path to a Sokoban board text file")
+    parser.add_argument(
+        "--algorithm",
+        choices=sorted(SOLVERS),
+        default="idastar",
+        help="search algorithm to use (default: idastar)",
+    )
     parser.add_argument(
         "--time-limit",
         type=float,
@@ -51,7 +66,7 @@ def main():
         parser.error(f"board file does not exist: {args.path}")
 
     try:
-        solve_file(args.path, args.time_limit)
+        solve_file(args.path, args.time_limit, args.algorithm)
     except (OSError, UnicodeError, ValueError) as error:
         parser.error(str(error))
 
