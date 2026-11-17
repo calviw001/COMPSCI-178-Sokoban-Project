@@ -2,6 +2,7 @@ from pathlib import Path
 from State import State
 from collections import deque, defaultdict
 import numpy as np
+from functools import cache
 from scipy.optimize import linear_sum_assignment
 
 # Up, Right, Down, Left
@@ -19,6 +20,7 @@ class Puzzle:
         self.width = width
         self.walls = walls
         self.goals = goals
+        self.heuristicCache = {}      # store already computed heuristics for certain states 
         self.deadlocks = set()        # dead squares, filled by findDeadlocks()
         self.floorSpaces = set()      # walkable squares located within a puzzle, does not count squares outside of walls, 
                                       # filled by findFloorSpaces()
@@ -27,12 +29,14 @@ class Puzzle:
         self.sortStates = sortStates
         self.checkFrozenBox = checkFrozenBox
 
+
     # Read in a Sokoban puzzle in the form of a text file. Parse each line of the file in order to extract the 
     # x and y coordinates of the different Sokoban elements and add that information to the Puzzle class.
     def parsePuzzleFile(self, puzzleFile):
         # Reset the Puzzle on use
         self.walls = set()
         self.goals = set()
+        self.heuristicCache.clear()
         self.deadlocks = set()
         boxes = set()
         player = None
@@ -329,6 +333,14 @@ class Puzzle:
     # For each box and each goal, compute a distance. Then pair each box with a different goal so that the total distance is 
     # as small as possible.
     def heuristic(self, state):
+        boxes = state.boxes
+
+        # First, check to see if this heuristic has already been calculated for this specific state and boxes positions
+        # Return the cached heuristic if it exists
+        possibleCachedHeur = self.heuristicCache.get(boxes)
+        if possibleCachedHeur:
+            return possibleCachedHeur
+
         # Create a list to store the distances for each box to each goal  
         boxesToGoals = []
 
@@ -352,6 +364,9 @@ class Puzzle:
         totalCost = np.array(boxesToGoals)
         rows, cols = linear_sum_assignment(totalCost)
         heur = totalCost[rows, cols].sum()
+
+        # Also save the heuristic value for this specific state and boxes positions 
+        self.heuristicCache[boxes] = heur
         return int(heur)
 
 
