@@ -24,6 +24,7 @@ class Puzzle:
         self.deadlocks = set()        # dead squares, filled by findDeadlocks()
         self.floorSpaces = set()      # walkable squares located within a puzzle, does not count squares outside of walls, 
                                       # filled by findFloorSpaces()
+        self.boxesToGoalsDistances = defaultdict(dict)
         self.startState = start
         self.useDeadlocks = useDeadlocks
         self.sortStates = sortStates
@@ -38,6 +39,7 @@ class Puzzle:
         self.goals = set()
         self.heuristicCache.clear()
         self.deadlocks = set()
+        self.boxesToGoalsDistances.clear()
         boxes = set()
         player = None
 
@@ -82,6 +84,7 @@ class Puzzle:
         self.findFloorSpaces()
         self.startState = self.normalizeState(self.startState)
         self.findDeadlocks()
+        self.findBoxesToGoalsDistances()
 
 
     # Use a BFS to find every walkable square/floor of the Sokoban puzzle.
@@ -327,6 +330,44 @@ class Puzzle:
         # Else, return true
         # Do not include stuck boxes that are on a goal because boxes are supposed to be on a goal
         return any(box not in self.goals for box in setOfStuckBoxes)
+
+
+    def findBoxesToGoalsDistances(self):
+        # For each goal in the given state
+        for eachGoal in self.goals:
+
+            # Initialize a queue with the goal square to start
+            squareQueue = deque()
+            squareQueue.append(eachGoal)
+            self.boxesToGoalsDistances[eachGoal][eachGoal] = 0
+
+            # Initially set the current number of pushes to get a box to this specific goal to 1
+            currPushes = 1
+
+            # Run until the queue is empty
+            while squareQueue:
+                # Get the first square and its x and y coordinates
+                currSquare = squareQueue.popleft()
+                currRow, currCol = currSquare
+
+                # For each square, imagine that there is a box on it and a player on one of the box's sides
+                # For each neighboring square, analyze whether a player is able to backtrack and pull a box from the current square to one of 
+                # the neighboring squares
+                for horDir, verDir in DIRECTIONS:
+                    backTrackedBox = (currRow + horDir, currCol + verDir)
+                    backTrackedPlayer = (currRow + 2*horDir, currCol + 2*verDir)
+
+
+                    # If a player can indeed pull a box back into a neightboring square, then that also means a player can
+                    # push a box from this neighboring square
+                    if backTrackedBox in self.floorSpaces and backTrackedPlayer in self.floorSpaces and backTrackedBox not in self.boxesToGoalsDistances[eachGoal].keys():
+                        squareQueue.append(backTrackedBox)
+
+                        # Add the new box to goal push distance 
+                        self.boxesToGoalsDistances[eachGoal][backTrackedBox] = currPushes
+
+                # The next set of boxes should now be +1 pushes away from this specific goal
+                currPushes += 1
 
 
     # Used to compute the minimum-matching heuristic of a state.
