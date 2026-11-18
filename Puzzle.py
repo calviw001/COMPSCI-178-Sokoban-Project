@@ -332,6 +332,7 @@ class Puzzle:
         return any(box not in self.goals for box in setOfStuckBoxes)
 
 
+    # Calculates the exact push distances for each possible square a box could be on to each one of the goals.
     def findBoxesToGoalsDistances(self):
         # For each goal in the given state
         for eachGoal in self.goals:
