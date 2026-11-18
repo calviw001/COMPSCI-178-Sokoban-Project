@@ -115,7 +115,7 @@ class IDAStar:
             
         else:
             all_moves = []
-            for box in pushes:
+            for box in sorted(pushes):
                 for direction in pushes[box]:
                     all_moves.append((box, direction))
 
