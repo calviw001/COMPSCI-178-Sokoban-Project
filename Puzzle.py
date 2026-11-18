@@ -341,12 +341,9 @@ class Puzzle:
             squareQueue.append(eachGoal)
             self.boxesToGoalsDistances[eachGoal][eachGoal] = 0
 
-            # Initially set the current number of pushes to get a box to this specific goal to 1
-            currPushes = 1
-
             # Run until the queue is empty
             while squareQueue:
-                # Get the first square and its x and y coordinates
+                # Get the square and its x and y coordinates
                 currSquare = squareQueue.popleft()
                 currRow, currCol = currSquare
 
@@ -364,10 +361,8 @@ class Puzzle:
                         squareQueue.append(backTrackedBox)
 
                         # Add the new box to goal push distance 
-                        self.boxesToGoalsDistances[eachGoal][backTrackedBox] = currPushes
-
-                # The next set of boxes should now be +1 pushes away from this specific goal
-                currPushes += 1
+                        # Distance for the new box should be +1 push from the current square where this new box is derived from
+                        self.boxesToGoalsDistances[eachGoal][backTrackedBox] = self.boxesToGoalsDistances[eachGoal][currSquare] + 1
 
 
     # Used to compute the minimum-matching heuristic of a state.
