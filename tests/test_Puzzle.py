@@ -372,5 +372,41 @@ class TestPuzzleClass(unittest.TestCase):
         self.assertFalse(p2.isFrozenDeadlock(state, (3, 5)))
 
 
+    def test_find_boxes_to_goal_distances(self):
+        p1 = load("small.txt")
+        self.assertEqual(p1.boxesToGoalsDistances, {(4, 2): {(4, 2): 0, (3, 2): 1}})
+
+        p2 = load("smallMixedSymbols.txt")
+        self.assertEqual(p2.boxesToGoalsDistances, {
+            (2, 2): {(2, 2): 0, (2, 3): 1, (2, 4): 2, (2, 5): 3},
+            (2, 6): {(2, 6): 0, (2, 5): 1, (2, 4): 2, (2, 3): 3},
+            (3, 5): {(3, 5): 0, (3, 4): 1, (3, 3): 2},
+        })
+
+        p3 = load("smallDetour.txt")
+        self.assertEqual(p3.boxesToGoalsDistances, {(2, 6): {(2, 6): 0, (3, 6): 1, (3, 5): 2, (3, 4): 3, (3, 3): 4}})
+
+        # medium.txt would be too tedious to create the full goals to squares distances dict of dicts
+        # Instead, just check the distance between each goal and each box of the starting state is correct
+        p4 = load("medium.txt")
+        expected = {
+            (3, 4): {(2, 2): 3, (5, 7): 5, (7, 4): 6},
+            (5, 6): {(2, 2): 7, (5, 7): 1, (7, 4): 6},
+            (6, 5): {(2, 2): 7, (5, 7): 3, (7, 4): 4},
+        }
+        self.assertEqual(p4.startState.boxes, frozenset(expected.keys()))
+        for box, goalDistances in expected.items():
+            for goal, distance in goalDistances.items():
+                self.assertEqual(p4.boxesToGoalsDistances[goal][box], distance)
+
+        # Make sure that the 'boxesToGoalsDistances' attribute holds all squares that can actually reach a goal (no deadlocks or walls)
+        for fileName in ["small.txt", "smallMixedSymbols.txt", "medium.txt", "smallDetour.txt"]:
+            p = load(fileName)
+            everySquareThatReachAGoal = set()
+            for table in p.boxesToGoalsDistances.values():
+                everySquareThatReachAGoal = everySquareThatReachAGoal | set(table.keys())
+            self.assertEqual(everySquareThatReachAGoal, p.floorSpaces - p.deadlocks)
+
+
 if __name__ == "__main__":
     unittest.main()
