@@ -260,13 +260,13 @@ class TestPuzzleClass(unittest.TestCase):
         self.assertEqual(p1.heuristic(p1.startState), 1)
 
         p2 = load("medium.txt")
-        self.assertEqual(p2.heuristic(p2.startState), 6)
+        self.assertEqual(p2.heuristic(p2.startState), 8)
         # From the start state, push box at (6, 5) to the left
         pushedLeft = p2.applySinglePush(p2.startState, (6, 5), (0, -1))
-        self.assertEqual(p2.heuristic(pushedLeft), 5)
+        self.assertEqual(p2.heuristic(pushedLeft), 7)
         # From the start state, push box at (5, 6) to up
         pushedUp = p2.applySinglePush(p2.startState, (5, 6), (-1, 0))
-        self.assertEqual(p2.heuristic(pushedUp), 7)
+        self.assertEqual(p2.heuristic(pushedUp), 9)
 
         p3 = load("smallMixedSymbols.txt")
         self.assertEqual(p3.heuristic(p3.startState), 3)

@@ -382,15 +382,17 @@ class Puzzle:
         boxesToGoals = []
 
         # For each box...
-        for eachBox in state.boxes: 
+        for eachBox in state.boxes:
             eachBoxToGoals = []
 
             # Iterate through all the goals for in order to calculate these distance
             for goal in self.goals:
 
-                # Using manhattan distance for now
-                # If there is more time later, will switch to calculating the actually distances instead
-                distance = abs(eachBox[0] - goal[0]) + abs(eachBox[1] - goal[1])
+                # Use the distances already calculated and stored in 'self.boxesToGoalsDistances'
+                try:
+                    distance = self.boxesToGoalsDistances[goal][eachBox]
+                except KeyError:
+                    distance = float('inf')
                 eachBoxToGoals.append(distance)
 
             # Add the row of each box to goals to the list                
