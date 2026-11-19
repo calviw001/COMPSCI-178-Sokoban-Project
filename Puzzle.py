@@ -392,7 +392,7 @@ class Puzzle:
                 try:
                     distance = self.boxesToGoalsDistances[goal][eachBox]
                 except KeyError:
-                    distance = float('inf')
+                    distance = 10000
                 eachBoxToGoals.append(distance)
 
             # Add the row of each box to goals to the list                
