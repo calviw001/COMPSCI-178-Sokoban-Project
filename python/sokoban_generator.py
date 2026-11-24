@@ -137,19 +137,29 @@ for _t in _BASE:
 
 
 # ---------------------------------------------------------------- room build
-def build_room(rng, bw, bh):
-    """Assemble a (3*bw+2) x (3*bh+2) room from random templates."""
-    H, W = bh * 3 + 2, bw * 3 + 2
-    grid = [["#"] * W for _ in range(H)]
+def build_room(rng, bw, bh, size=None):
+    """Assemble a room, optionally cropped to exact (rows, columns)."""
+    source_h, source_w = bh * 3 + 2, bw * 3 + 2
+    grid = [["#"] * source_w for _ in range(source_h)]
     for by in range(bh):
         for bx in range(bw):
             t = rng.choice(TEMPLATES)
             for i in range(3):
                 for j in range(3):
                     grid[1 + 3 * by + i][1 + 3 * bx + j] = t[i][j]
-    floors = frozenset(
-        (r, c) for r in range(H) for c in range(W) if grid[r][c] == " "
-    )
+    if size is None:
+        H, W = source_h, source_w
+    else:
+        H, W = size
+        if H > source_h or W > source_w:
+            raise ValueError("room template blocks are too small for the requested size")
+        cropped = [["#"] * W for _ in range(H)]
+        for r in range(1, H - 1):
+            for c in range(1, W - 1):
+                cropped[r][c] = grid[r][c]
+        grid = cropped
+    floors = frozenset((r, c) for r in range(H) for c in range(W)
+                       if grid[r][c] == " ")
     return floors, H, W
 
 
@@ -518,14 +528,64 @@ def _place_goals(rng, floors, cand, n, difficulty):
     return frozenset(rng.sample(cand, n))
 
 
-def generate(difficulty, seed=None, max_attempts=250, time_budget=None,
-             verbose=False):
-    """Generate one guaranteed-solvable level at the given difficulty (1..10).
+def _normalize_size(size):
+    """Return exact (rows, columns); an integer means a square board."""
+    if size is None:
+        return None
+    if isinstance(size, int):
+        height = width = size
+    else:
+        try:
+            height, width = size
+        except (TypeError, ValueError):
+            raise ValueError("size must be an integer or a (rows, columns) pair")
+    if not isinstance(height, int) or not isinstance(width, int):
+        raise ValueError("board dimensions must be integers")
+    if height < 5 or width < 5:
+        raise ValueError("board dimensions must be at least 5 rows and 5 columns")
+    return height, width
 
-    Returns a Level.  level.stats['meets_target'] tells whether the full
-    difficulty band was hit (otherwise the best level found is returned)."""
+
+def _parse_size(value):
+    """Argparse converter for N or ROWSxCOLUMNS."""
+    parts = value.lower().split("x")
+    try:
+        if len(parts) == 1:
+            return _normalize_size(int(parts[0]))
+        if len(parts) == 2:
+            return _normalize_size((int(parts[0]), int(parts[1])))
+    except ValueError as error:
+        raise argparse.ArgumentTypeError(str(error))
+    raise argparse.ArgumentTypeError("size must be N or ROWSxCOLUMNS, e.g. 7 or 7x9")
+
+
+def generate(difficulty=5, seed=None, max_attempts=250, time_budget=None,
+             verbose=False, size=None, boxes=None):
+    """Generate a solvable level with optional exact size and box count.
+
+    ``size`` is an integer for a square board or a (rows, columns) pair.
+    Explicit size and box count override the difficulty profile's geometry;
+    difficulty still controls the target challenge. If that target is not met,
+    the best level found is returned.
+    """
     difficulty = max(1, min(10, int(difficulty)))
-    P = PARAMS[difficulty]
+    P = dict(PARAMS[difficulty])
+    size = _normalize_size(size)
+    if boxes is not None:
+        boxes = int(boxes)
+        if boxes < 1:
+            raise ValueError("box count must be at least 1")
+        P["boxes"] = boxes
+    if size is not None:
+        H, W = size
+        max_boxes = int(0.82 * (H - 2) * (W - 2) / 5)
+        if P["boxes"] > max_boxes:
+            raise ValueError(
+                f"{H}x{W} is too small for {P['boxes']} boxes; "
+                f"the generator's density limit allows at most {max_boxes}"
+            )
+        P["bh"] = math.ceil((H - 2) / 3)
+        P["bw"] = math.ceil((W - 2) / 3)
     if time_budget is None:
         time_budget = 10 + 5 * difficulty
     rng = random.Random(seed)
@@ -535,7 +595,7 @@ def generate(difficulty, seed=None, max_attempts=250, time_budget=None,
     for attempt in range(1, max_attempts + 1):
         if time.time() - t0 > time_budget and best is not None:
             break
-        floors, H, W = build_room(rng, P["bw"], P["bh"])
+        floors, H, W = build_room(rng, P["bw"], P["bh"], size=size)
         if not room_ok(floors, H, W, min_floor=P["boxes"] * 5):
             continue
         # goals must allow at least one pull-off direction
@@ -575,6 +635,7 @@ def generate(difficulty, seed=None, max_attempts=250, time_budget=None,
                            moves=len(lurd), box_changes=changes,
                            counter_pushes=counter, nodes=sol["expanded"],
                            score=score, boxes=P["boxes"],
+                           height=H, width=W,
                            attempt=attempt, meets_target=False),
             )
             assert level.verify(), "internal error: solution failed replay"
@@ -722,8 +783,12 @@ def export_html(levels, path):
 # ---------------------------------------------------------------- CLI
 def main():
     ap = argparse.ArgumentParser(description="Sokoban level generator")
-    ap.add_argument("-d", "--difficulty", type=int, default=5,
-                    help="difficulty 1..10 (default 5)")
+    ap.add_argument("-d", "--difficulty", type=int, default=None,
+                    help="difficulty target 1..10 (default 5; also used with custom size/boxes)")
+    ap.add_argument("--size", type=_parse_size, metavar="N|ROWSxCOLS",
+                    help="exact board size, e.g. 7 for 7x7 or 7x9 for 7 rows by 9 columns")
+    ap.add_argument("--boxes", type=int,
+                    help="exact number of boxes (one goal is placed per box)")
     ap.add_argument("-n", "--count", type=int, default=1,
                     help="number of levels")
     ap.add_argument("--seed", type=int, default=None)
@@ -739,8 +804,13 @@ def main():
     args = ap.parse_args()
     if args.demo and args.board_only:
         ap.error("--board-only cannot be combined with --demo")
+    if args.demo and (args.size is not None or args.boxes is not None):
+        ap.error("--size and --boxes cannot be combined with --demo")
+    if args.boxes is not None and args.boxes < 1:
+        ap.error("--boxes must be at least 1")
 
     rng = random.Random(args.seed)
+    difficulty = 5 if args.difficulty is None else args.difficulty
     levels = []
     if args.demo:
         for d in range(1, 11):
@@ -755,11 +825,13 @@ def main():
 
     for i in range(args.count):
         seed = None if args.seed is None else rng.randrange(1 << 30)
-        lv = generate(args.difficulty, seed=seed, verbose=args.verbose)
+        lv = generate(difficulty, seed=seed, verbose=args.verbose,
+                      size=args.size, boxes=args.boxes)
         levels.append(lv)
         s = lv.stats
         if not args.board_only:
-            print(f"; difficulty {s['difficulty']}  pushes {s['pushes']}  "
+            print(f"; size {s['height']}x{s['width']}  boxes {s['boxes']}  "
+                  f"difficulty {s['difficulty']}  pushes {s['pushes']}  "
                   f"moves {s['moves']}  box-changes {s['box_changes']}  "
                   f"counter {s['counter_pushes']}  nodes {s['nodes']}  "
                   f"score {s['score']}"
