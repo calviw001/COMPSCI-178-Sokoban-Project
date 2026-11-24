@@ -1,0 +1,1985 @@
+{
+  "count": 60,
+  "boards": [
+    {
+      "file": "6x6_1box_01.txt",
+      "size": "6x6",
+      "boxes": 1,
+      "seed": 20862125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": false,
+        "solution_pushes": 4
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 4,
+        "expanded": 5,
+        "seconds": 0.000529,
+        "valid": true,
+        "height": 6,
+        "width": 6,
+        "boxes": 1
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 4,
+        "expanded": 7,
+        "seconds": 0.001268,
+        "valid": true,
+        "height": 6,
+        "width": 6,
+        "boxes": 1
+      },
+      "sha256": "e10ebe3016b2499bbee5ae95eb62bd47db54ca8bb762944a350e7d50a87decbe"
+    },
+    {
+      "file": "6x6_2box_02.txt",
+      "size": "6x6",
+      "boxes": 2,
+      "seed": 20863125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 6
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 6,
+        "expanded": 11,
+        "seconds": 0.000902,
+        "valid": true,
+        "height": 6,
+        "width": 6,
+        "boxes": 2
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 6,
+        "expanded": 9,
+        "seconds": 0.001981,
+        "valid": true,
+        "height": 6,
+        "width": 6,
+        "boxes": 2
+      },
+      "sha256": "266f9d88b503ca52605de199a508718fd52fa1206649c5cfa8758119f8a78f55"
+    },
+    {
+      "file": "6x6_1box_03.txt",
+      "size": "6x6",
+      "boxes": 1,
+      "seed": 20864125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": false,
+        "solution_pushes": 4
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 4,
+        "expanded": 5,
+        "seconds": 0.000441,
+        "valid": true,
+        "height": 6,
+        "width": 6,
+        "boxes": 1
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 4,
+        "expanded": 7,
+        "seconds": 0.001022,
+        "valid": true,
+        "height": 6,
+        "width": 6,
+        "boxes": 1
+      },
+      "sha256": "4c49fe935a21e5387d4162d8b27795eb5491de558a8b09d2477631ac4d33cbd3"
+    },
+    {
+      "file": "6x6_2box_04.txt",
+      "size": "6x6",
+      "boxes": 2,
+      "seed": 20865125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 5
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 5,
+        "expanded": 10,
+        "seconds": 0.000957,
+        "valid": true,
+        "height": 6,
+        "width": 6,
+        "boxes": 2
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 5,
+        "expanded": 8,
+        "seconds": 0.001694,
+        "valid": true,
+        "height": 6,
+        "width": 6,
+        "boxes": 2
+      },
+      "sha256": "916394f6cd4a1a5db35301e5cf6603eed52c6b812505bf8c74ce5ac81a6b55b5"
+    },
+    {
+      "file": "6x6_1box_05.txt",
+      "size": "6x6",
+      "boxes": 1,
+      "seed": 20866125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": false,
+        "solution_pushes": 4
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 4,
+        "expanded": 4,
+        "seconds": 0.000418,
+        "valid": true,
+        "height": 6,
+        "width": 6,
+        "boxes": 1
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 4,
+        "expanded": 5,
+        "seconds": 0.000761,
+        "valid": true,
+        "height": 6,
+        "width": 6,
+        "boxes": 1
+      },
+      "sha256": "3b3e536ebaa0ad7860d6cfac7f9df0a288ffb8bd244d878ce2b9cb88285862bc"
+    },
+    {
+      "file": "6x6_2box_06.txt",
+      "size": "6x6",
+      "boxes": 2,
+      "seed": 20867125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 6
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 6,
+        "expanded": 27,
+        "seconds": 0.00255,
+        "valid": true,
+        "height": 6,
+        "width": 6,
+        "boxes": 2
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 6,
+        "expanded": 6,
+        "seconds": 0.001268,
+        "valid": true,
+        "height": 6,
+        "width": 6,
+        "boxes": 2
+      },
+      "sha256": "9b752b779bee48481bfbf557895bb17d59a6667a152ae01fe5308816331ac2a0"
+    },
+    {
+      "file": "6x6_1box_07.txt",
+      "size": "6x6",
+      "boxes": 1,
+      "seed": 20868125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": false,
+        "solution_pushes": 5
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 5,
+        "expanded": 5,
+        "seconds": 0.000377,
+        "valid": true,
+        "height": 6,
+        "width": 6,
+        "boxes": 1
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 5,
+        "expanded": 6,
+        "seconds": 0.000768,
+        "valid": true,
+        "height": 6,
+        "width": 6,
+        "boxes": 1
+      },
+      "sha256": "0809bbac27d92cbdcf866ac91c2d698d20012dac5a59d67575e59251d20a5bca"
+    },
+    {
+      "file": "6x6_2box_08.txt",
+      "size": "6x6",
+      "boxes": 2,
+      "seed": 20869125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 7
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 7,
+        "expanded": 12,
+        "seconds": 0.000798,
+        "valid": true,
+        "height": 6,
+        "width": 6,
+        "boxes": 2
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 7,
+        "expanded": 17,
+        "seconds": 0.001824,
+        "valid": true,
+        "height": 6,
+        "width": 6,
+        "boxes": 2
+      },
+      "sha256": "1a820851e20d7b39960becd74166cf3a8718eb3548f3f96b15f09214ee0f47a2"
+    },
+    {
+      "file": "6x6_1box_09.txt",
+      "size": "6x6",
+      "boxes": 1,
+      "seed": 20870125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": false,
+        "solution_pushes": 5
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 5,
+        "expanded": 6,
+        "seconds": 0.000607,
+        "valid": true,
+        "height": 6,
+        "width": 6,
+        "boxes": 1
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 5,
+        "expanded": 7,
+        "seconds": 0.001084,
+        "valid": true,
+        "height": 6,
+        "width": 6,
+        "boxes": 1
+      },
+      "sha256": "7eea374efa24b76450a27260ad68d216ad6eedda9ccdb991e1e8cabfd66e3745"
+    },
+    {
+      "file": "6x6_2box_10.txt",
+      "size": "6x6",
+      "boxes": 2,
+      "seed": 20871125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 5
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 5,
+        "expanded": 15,
+        "seconds": 0.001402,
+        "valid": true,
+        "height": 6,
+        "width": 6,
+        "boxes": 2
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 5,
+        "expanded": 8,
+        "seconds": 0.001483,
+        "valid": true,
+        "height": 6,
+        "width": 6,
+        "boxes": 2
+      },
+      "sha256": "a9801182341d8dd8286f3be53e7370c7a812fec9f571a6c432f7e741dcf9de8b"
+    },
+    {
+      "file": "7x7_1box_01.txt",
+      "size": "7x7",
+      "boxes": 1,
+      "seed": 20962125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": false,
+        "solution_pushes": 5
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 5,
+        "expanded": 10,
+        "seconds": 0.001054,
+        "valid": true,
+        "height": 7,
+        "width": 7,
+        "boxes": 1
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 5,
+        "expanded": 7,
+        "seconds": 0.001332,
+        "valid": true,
+        "height": 7,
+        "width": 7,
+        "boxes": 1
+      },
+      "sha256": "ca0801104add27e63f87b272ee146e132dfc53d4e10ed3c28ce175438f8e65c5"
+    },
+    {
+      "file": "7x7_2box_02.txt",
+      "size": "7x7",
+      "boxes": 2,
+      "seed": 20963125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 7
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 7,
+        "expanded": 18,
+        "seconds": 0.001673,
+        "valid": true,
+        "height": 7,
+        "width": 7,
+        "boxes": 2
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 7,
+        "expanded": 8,
+        "seconds": 0.001354,
+        "valid": true,
+        "height": 7,
+        "width": 7,
+        "boxes": 2
+      },
+      "sha256": "8dc6540095376ba84ddcbf51b9145c061691209d94b92ff0be4c3d364faa3104"
+    },
+    {
+      "file": "7x7_3box_03.txt",
+      "size": "7x7",
+      "boxes": 3,
+      "seed": 20964125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 7
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 7,
+        "expanded": 13,
+        "seconds": 0.001088,
+        "valid": true,
+        "height": 7,
+        "width": 7,
+        "boxes": 3
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 7,
+        "expanded": 7,
+        "seconds": 0.001328,
+        "valid": true,
+        "height": 7,
+        "width": 7,
+        "boxes": 3
+      },
+      "sha256": "1fe9ba1d6ec71c40f66ece9425af2bf3eeac33dd1ce7368b063852eb9a3192a4"
+    },
+    {
+      "file": "7x7_1box_04.txt",
+      "size": "7x7",
+      "boxes": 1,
+      "seed": 20965125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": false,
+        "solution_pushes": 8
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 8,
+        "expanded": 9,
+        "seconds": 0.000615,
+        "valid": true,
+        "height": 7,
+        "width": 7,
+        "boxes": 1
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 8,
+        "expanded": 10,
+        "seconds": 0.001142,
+        "valid": true,
+        "height": 7,
+        "width": 7,
+        "boxes": 1
+      },
+      "sha256": "5aa7b28d494f636f64ce73f1ecde2d3f5592dbbbbebc45da52174abaf3f2e5df"
+    },
+    {
+      "file": "7x7_2box_05.txt",
+      "size": "7x7",
+      "boxes": 2,
+      "seed": 20966125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 7
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 7,
+        "expanded": 28,
+        "seconds": 0.003167,
+        "valid": true,
+        "height": 7,
+        "width": 7,
+        "boxes": 2
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 7,
+        "expanded": 12,
+        "seconds": 0.002484,
+        "valid": true,
+        "height": 7,
+        "width": 7,
+        "boxes": 2
+      },
+      "sha256": "8618fbcd5d51623bdcb467b436369ce43b05ef445481c994e61734733ce6417c"
+    },
+    {
+      "file": "7x7_3box_06.txt",
+      "size": "7x7",
+      "boxes": 3,
+      "seed": 20967125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 8
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 8,
+        "expanded": 106,
+        "seconds": 0.013414,
+        "valid": true,
+        "height": 7,
+        "width": 7,
+        "boxes": 3
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 8,
+        "expanded": 12,
+        "seconds": 0.003349,
+        "valid": true,
+        "height": 7,
+        "width": 7,
+        "boxes": 3
+      },
+      "sha256": "065005ec90708b1ed8272212da6dcebd5665d065278995257d1ecdbc904949d9"
+    },
+    {
+      "file": "7x7_1box_07.txt",
+      "size": "7x7",
+      "boxes": 1,
+      "seed": 20968125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": false,
+        "solution_pushes": 8
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 8,
+        "expanded": 8,
+        "seconds": 0.000768,
+        "valid": true,
+        "height": 7,
+        "width": 7,
+        "boxes": 1
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 8,
+        "expanded": 15,
+        "seconds": 0.001809,
+        "valid": true,
+        "height": 7,
+        "width": 7,
+        "boxes": 1
+      },
+      "sha256": "cdf27d5115ad0f38333c4f417404abbc02fc6659c57003e3ab33723140af9607"
+    },
+    {
+      "file": "7x7_2box_08.txt",
+      "size": "7x7",
+      "boxes": 2,
+      "seed": 20969125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 9
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 9,
+        "expanded": 40,
+        "seconds": 0.004559,
+        "valid": true,
+        "height": 7,
+        "width": 7,
+        "boxes": 2
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 9,
+        "expanded": 32,
+        "seconds": 0.00587,
+        "valid": true,
+        "height": 7,
+        "width": 7,
+        "boxes": 2
+      },
+      "sha256": "4a49b004be604613ddfc3a714014dab9777a28719688b0bf70af931ab42e930f"
+    },
+    {
+      "file": "7x7_3box_09.txt",
+      "size": "7x7",
+      "boxes": 3,
+      "seed": 20970125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 7
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 7,
+        "expanded": 11,
+        "seconds": 0.001513,
+        "valid": true,
+        "height": 7,
+        "width": 7,
+        "boxes": 3
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 7,
+        "expanded": 7,
+        "seconds": 0.001585,
+        "valid": true,
+        "height": 7,
+        "width": 7,
+        "boxes": 3
+      },
+      "sha256": "b9bb43cab3334e76700d35e91f6c7886345a3b74d9dc6001cf93232eece05577"
+    },
+    {
+      "file": "7x7_1box_10.txt",
+      "size": "7x7",
+      "boxes": 1,
+      "seed": 20971125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": false,
+        "solution_pushes": 8
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 8,
+        "expanded": 8,
+        "seconds": 0.000653,
+        "valid": true,
+        "height": 7,
+        "width": 7,
+        "boxes": 1
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 8,
+        "expanded": 11,
+        "seconds": 0.001257,
+        "valid": true,
+        "height": 7,
+        "width": 7,
+        "boxes": 1
+      },
+      "sha256": "b235bf4e365f594ed6ca840a62334db426ca65d58642fc4a62512388b167f361"
+    },
+    {
+      "file": "8x8_1box_01.txt",
+      "size": "8x8",
+      "boxes": 1,
+      "seed": 21062125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 9
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 9,
+        "expanded": 12,
+        "seconds": 0.001939,
+        "valid": true,
+        "height": 8,
+        "width": 8,
+        "boxes": 1
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 9,
+        "expanded": 16,
+        "seconds": 0.003424,
+        "valid": true,
+        "height": 8,
+        "width": 8,
+        "boxes": 1
+      },
+      "sha256": "3866d7cee8768799ccc497dbe9582915fed893309172f39c1e75e9ed373a175c"
+    },
+    {
+      "file": "8x8_2box_02.txt",
+      "size": "8x8",
+      "boxes": 2,
+      "seed": 21063125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 7
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 7,
+        "expanded": 38,
+        "seconds": 0.006322,
+        "valid": true,
+        "height": 8,
+        "width": 8,
+        "boxes": 2
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 7,
+        "expanded": 11,
+        "seconds": 0.003046,
+        "valid": true,
+        "height": 8,
+        "width": 8,
+        "boxes": 2
+      },
+      "sha256": "1e7b278da0819c78b12dd7ef460e6d8839c540f2129a5b81692f8386324f3f70"
+    },
+    {
+      "file": "8x8_3box_03.txt",
+      "size": "8x8",
+      "boxes": 3,
+      "seed": 21064125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 8
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 8,
+        "expanded": 131,
+        "seconds": 0.016528,
+        "valid": true,
+        "height": 8,
+        "width": 8,
+        "boxes": 3
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 8,
+        "expanded": 8,
+        "seconds": 0.002692,
+        "valid": true,
+        "height": 8,
+        "width": 8,
+        "boxes": 3
+      },
+      "sha256": "261420ad4b5515b5c00a2d01a5e4ce62f66e72693a08bc664221ff5a73c4b638"
+    },
+    {
+      "file": "8x8_4box_04.txt",
+      "size": "8x8",
+      "boxes": 4,
+      "seed": 21065125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 13
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 13,
+        "expanded": 404,
+        "seconds": 0.051321,
+        "valid": true,
+        "height": 8,
+        "width": 8,
+        "boxes": 4
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 13,
+        "expanded": 73,
+        "seconds": 0.022466,
+        "valid": true,
+        "height": 8,
+        "width": 8,
+        "boxes": 4
+      },
+      "sha256": "fad5528eb610eaa353854384e4fcb7515e8a4d654affd07a7f2df740e1badb08"
+    },
+    {
+      "file": "8x8_1box_05.txt",
+      "size": "8x8",
+      "boxes": 1,
+      "seed": 21066125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 13
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 13,
+        "expanded": 16,
+        "seconds": 0.001604,
+        "valid": true,
+        "height": 8,
+        "width": 8,
+        "boxes": 1
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 13,
+        "expanded": 43,
+        "seconds": 0.005185,
+        "valid": true,
+        "height": 8,
+        "width": 8,
+        "boxes": 1
+      },
+      "sha256": "504f62b49193b153ca7a2cd734e8caad0496b2a85afca7ce11739bf0c6213920"
+    },
+    {
+      "file": "8x8_2box_06.txt",
+      "size": "8x8",
+      "boxes": 2,
+      "seed": 21067125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 12
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 12,
+        "expanded": 84,
+        "seconds": 0.012655,
+        "valid": true,
+        "height": 8,
+        "width": 8,
+        "boxes": 2
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 12,
+        "expanded": 12,
+        "seconds": 0.002538,
+        "valid": true,
+        "height": 8,
+        "width": 8,
+        "boxes": 2
+      },
+      "sha256": "f0da44afa11cf34c8a5e5c9b5a29a938a1136263d2e14deaf37aa973d036c8d3"
+    },
+    {
+      "file": "8x8_3box_07.txt",
+      "size": "8x8",
+      "boxes": 3,
+      "seed": 21068125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 10
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 10,
+        "expanded": 98,
+        "seconds": 0.01842,
+        "valid": true,
+        "height": 8,
+        "width": 8,
+        "boxes": 3
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 10,
+        "expanded": 10,
+        "seconds": 0.003241,
+        "valid": true,
+        "height": 8,
+        "width": 8,
+        "boxes": 3
+      },
+      "sha256": "e07d89e9ad98da4af0fde9753814c415e1847f9eff8540284a948a104e2ad972"
+    },
+    {
+      "file": "8x8_4box_08.txt",
+      "size": "8x8",
+      "boxes": 4,
+      "seed": 21069125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 13
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 13,
+        "expanded": 868,
+        "seconds": 0.109983,
+        "valid": true,
+        "height": 8,
+        "width": 8,
+        "boxes": 4
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 13,
+        "expanded": 455,
+        "seconds": 0.112607,
+        "valid": true,
+        "height": 8,
+        "width": 8,
+        "boxes": 4
+      },
+      "sha256": "fe6e629108db47836682fe6ae439ef11d84d3477fb4d4a8fade931fb9df4a254"
+    },
+    {
+      "file": "8x8_1box_09.txt",
+      "size": "8x8",
+      "boxes": 1,
+      "seed": 21070125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 8
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 8,
+        "expanded": 11,
+        "seconds": 0.001099,
+        "valid": true,
+        "height": 8,
+        "width": 8,
+        "boxes": 1
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 8,
+        "expanded": 19,
+        "seconds": 0.002455,
+        "valid": true,
+        "height": 8,
+        "width": 8,
+        "boxes": 1
+      },
+      "sha256": "117c2c9d4aab5c1b0ae9dc3aa406cd7f9f8a5e5fcb9a120df83c588ae1225b1f"
+    },
+    {
+      "file": "8x8_2box_10.txt",
+      "size": "8x8",
+      "boxes": 2,
+      "seed": 21071125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 9
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 9,
+        "expanded": 23,
+        "seconds": 0.002611,
+        "valid": true,
+        "height": 8,
+        "width": 8,
+        "boxes": 2
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 9,
+        "expanded": 18,
+        "seconds": 0.003125,
+        "valid": true,
+        "height": 8,
+        "width": 8,
+        "boxes": 2
+      },
+      "sha256": "791998d50a1ff6f060f12d4643e994ee83b73d19b4f6af9d0b3a67199ea16aa1"
+    },
+    {
+      "file": "9x9_1box_01.txt",
+      "size": "9x9",
+      "boxes": 1,
+      "seed": 21162125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 13
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 13,
+        "expanded": 15,
+        "seconds": 0.003519,
+        "valid": true,
+        "height": 9,
+        "width": 9,
+        "boxes": 1
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 13,
+        "expanded": 13,
+        "seconds": 0.003883,
+        "valid": true,
+        "height": 9,
+        "width": 9,
+        "boxes": 1
+      },
+      "sha256": "ecbc299ebe674aa2eaef5371099a4bb3ab32c83d68af415beb32e05ed0f8da71"
+    },
+    {
+      "file": "9x9_2box_02.txt",
+      "size": "9x9",
+      "boxes": 2,
+      "seed": 21163125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 10
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 10,
+        "expanded": 104,
+        "seconds": 0.018148,
+        "valid": true,
+        "height": 9,
+        "width": 9,
+        "boxes": 2
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 10,
+        "expanded": 12,
+        "seconds": 0.003688,
+        "valid": true,
+        "height": 9,
+        "width": 9,
+        "boxes": 2
+      },
+      "sha256": "ab856d94663bc2363bdfaae870d52317d8efc315e0dbf07c80beae2603917c78"
+    },
+    {
+      "file": "9x9_3box_03.txt",
+      "size": "9x9",
+      "boxes": 3,
+      "seed": 21164125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 12
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 12,
+        "expanded": 630,
+        "seconds": 0.096508,
+        "valid": true,
+        "height": 9,
+        "width": 9,
+        "boxes": 3
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 12,
+        "expanded": 30,
+        "seconds": 0.0089,
+        "valid": true,
+        "height": 9,
+        "width": 9,
+        "boxes": 3
+      },
+      "sha256": "b6ff990564a48a38ebaa856d0a75a60af085119d7393e3f8cf9675572bcb8313"
+    },
+    {
+      "file": "9x9_4box_04.txt",
+      "size": "9x9",
+      "boxes": 4,
+      "seed": 21165125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 14
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 383,
+        "seconds": 0.041317,
+        "valid": true,
+        "height": 9,
+        "width": 9,
+        "boxes": 4
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 16,
+        "seconds": 0.003385,
+        "valid": true,
+        "height": 9,
+        "width": 9,
+        "boxes": 4
+      },
+      "sha256": "9d0e2cb8e4a78f68b3515091373855c8d4b2297b73b29326f30aa2734daa32a3"
+    },
+    {
+      "file": "9x9_5box_05.txt",
+      "size": "9x9",
+      "boxes": 5,
+      "seed": 21166125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 14
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 1777,
+        "seconds": 0.284733,
+        "valid": true,
+        "height": 9,
+        "width": 9,
+        "boxes": 5
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 14,
+        "seconds": 0.002997,
+        "valid": true,
+        "height": 9,
+        "width": 9,
+        "boxes": 5
+      },
+      "sha256": "6b7cd329bb5a756af3d191abf1ccd621d202cf0ea3fb922303ba7c739fc58247"
+    },
+    {
+      "file": "9x9_1box_06.txt",
+      "size": "9x9",
+      "boxes": 1,
+      "seed": 21167125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 12
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 12,
+        "expanded": 14,
+        "seconds": 0.001951,
+        "valid": true,
+        "height": 9,
+        "width": 9,
+        "boxes": 1
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 12,
+        "expanded": 27,
+        "seconds": 0.004627,
+        "valid": true,
+        "height": 9,
+        "width": 9,
+        "boxes": 1
+      },
+      "sha256": "a6bea4b66ce6247e33b844f9a70699c7436f3ac57b1579b9f5b1bd5f68bd6802"
+    },
+    {
+      "file": "9x9_2box_07.txt",
+      "size": "9x9",
+      "boxes": 2,
+      "seed": 21168125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 8
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 8,
+        "expanded": 64,
+        "seconds": 0.012505,
+        "valid": true,
+        "height": 9,
+        "width": 9,
+        "boxes": 2
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 8,
+        "expanded": 8,
+        "seconds": 0.001675,
+        "valid": true,
+        "height": 9,
+        "width": 9,
+        "boxes": 2
+      },
+      "sha256": "441e9555d9dd2f13df4b00694328fd5bb65949a57b7cecd08a09a6af7bd6efeb"
+    },
+    {
+      "file": "9x9_3box_08.txt",
+      "size": "9x9",
+      "boxes": 3,
+      "seed": 21169125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 14
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 679,
+        "seconds": 0.129999,
+        "valid": true,
+        "height": 9,
+        "width": 9,
+        "boxes": 3
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 25,
+        "seconds": 0.007905,
+        "valid": true,
+        "height": 9,
+        "width": 9,
+        "boxes": 3
+      },
+      "sha256": "a2a8694b932495ab64d2434683af0592a0b72f0ce64f3f708c3544c7ce669187"
+    },
+    {
+      "file": "9x9_4box_09.txt",
+      "size": "9x9",
+      "boxes": 4,
+      "seed": 21170125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 8
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 8,
+        "expanded": 154,
+        "seconds": 0.044467,
+        "valid": true,
+        "height": 9,
+        "width": 9,
+        "boxes": 4
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 8,
+        "expanded": 13,
+        "seconds": 0.005307,
+        "valid": true,
+        "height": 9,
+        "width": 9,
+        "boxes": 4
+      },
+      "sha256": "e43137449f3fd708ff3f61049a418e4997983fcc40028e37b2317a413269d211"
+    },
+    {
+      "file": "9x9_5box_10.txt",
+      "size": "9x9",
+      "boxes": 5,
+      "seed": 21171125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 13
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 13,
+        "expanded": 6134,
+        "seconds": 1.921687,
+        "valid": true,
+        "height": 9,
+        "width": 9,
+        "boxes": 5
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 13,
+        "expanded": 19,
+        "seconds": 0.006918,
+        "valid": true,
+        "height": 9,
+        "width": 9,
+        "boxes": 5
+      },
+      "sha256": "3448f876f949a40f7ccb761cacec70f11960fec4138ff26c45b3f03419485677"
+    },
+    {
+      "file": "10x10_1box_01.txt",
+      "size": "10x10",
+      "boxes": 1,
+      "seed": 21262125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 14
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 28,
+        "seconds": 0.007881,
+        "valid": true,
+        "height": 10,
+        "width": 10,
+        "boxes": 1
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 14,
+        "seconds": 0.006168,
+        "valid": true,
+        "height": 10,
+        "width": 10,
+        "boxes": 1
+      },
+      "sha256": "c53f808f4e07791b2d4c7034cc16ea8c43e1eba1ab31043f46ae8254e624d2f3"
+    },
+    {
+      "file": "10x10_2box_02.txt",
+      "size": "10x10",
+      "boxes": 2,
+      "seed": 21263125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 11
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 11,
+        "expanded": 102,
+        "seconds": 0.01829,
+        "valid": true,
+        "height": 10,
+        "width": 10,
+        "boxes": 2
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 11,
+        "expanded": 11,
+        "seconds": 0.003208,
+        "valid": true,
+        "height": 10,
+        "width": 10,
+        "boxes": 2
+      },
+      "sha256": "f6359f9112ffd26e73192fd333af2120e70955f2a3435e91559819efab4dc18a"
+    },
+    {
+      "file": "10x10_3box_03.txt",
+      "size": "10x10",
+      "boxes": 3,
+      "seed": 21264125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 14
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 1276,
+        "seconds": 0.289411,
+        "valid": true,
+        "height": 10,
+        "width": 10,
+        "boxes": 3
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 18,
+        "seconds": 0.005574,
+        "valid": true,
+        "height": 10,
+        "width": 10,
+        "boxes": 3
+      },
+      "sha256": "9cdd2f2e888cde153f56312ba1c2f24d8f26e09724650908612ff0cf190c8c15"
+    },
+    {
+      "file": "10x10_4box_04.txt",
+      "size": "10x10",
+      "boxes": 4,
+      "seed": 21265125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 12
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 12,
+        "expanded": 1159,
+        "seconds": 0.330919,
+        "valid": true,
+        "height": 10,
+        "width": 10,
+        "boxes": 4
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 12,
+        "expanded": 22,
+        "seconds": 0.006584,
+        "valid": true,
+        "height": 10,
+        "width": 10,
+        "boxes": 4
+      },
+      "sha256": "fc51a8a621cff8ec6f33ac63d101189c5a21900ac5cfde2934391860be3f90a6"
+    },
+    {
+      "file": "10x10_5box_05.txt",
+      "size": "10x10",
+      "boxes": 5,
+      "seed": 21266125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 14
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 1267,
+        "seconds": 0.158682,
+        "valid": true,
+        "height": 10,
+        "width": 10,
+        "boxes": 5
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 74,
+        "seconds": 0.019879,
+        "valid": true,
+        "height": 10,
+        "width": 10,
+        "boxes": 5
+      },
+      "sha256": "3c98f68f2abba756ec30f6de477f7e34e625dbb1d97624bddf5a729bbec4a3ba"
+    },
+    {
+      "file": "10x10_1box_06.txt",
+      "size": "10x10",
+      "boxes": 1,
+      "seed": 21267125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 14
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 27,
+        "seconds": 0.00675,
+        "valid": true,
+        "height": 10,
+        "width": 10,
+        "boxes": 1
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 14,
+        "seconds": 0.005673,
+        "valid": true,
+        "height": 10,
+        "width": 10,
+        "boxes": 1
+      },
+      "sha256": "cf54faa3aa2e860bd59aa53d4dd8a7d7b4964735374de48f647ad7ca72d7d5e7"
+    },
+    {
+      "file": "10x10_2box_07.txt",
+      "size": "10x10",
+      "boxes": 2,
+      "seed": 21268125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 7
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 7,
+        "expanded": 16,
+        "seconds": 0.004516,
+        "valid": true,
+        "height": 10,
+        "width": 10,
+        "boxes": 2
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 7,
+        "expanded": 7,
+        "seconds": 0.002433,
+        "valid": true,
+        "height": 10,
+        "width": 10,
+        "boxes": 2
+      },
+      "sha256": "b95906b414c4662f6aaac5fd2ce230172981e8dd1392ce7ea5d5a55853e04a44"
+    },
+    {
+      "file": "10x10_3box_08.txt",
+      "size": "10x10",
+      "boxes": 3,
+      "seed": 21269125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 14
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 597,
+        "seconds": 0.121235,
+        "valid": true,
+        "height": 10,
+        "width": 10,
+        "boxes": 3
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 14,
+        "seconds": 0.003846,
+        "valid": true,
+        "height": 10,
+        "width": 10,
+        "boxes": 3
+      },
+      "sha256": "74d9a297e0c39722e488146313231aa060f49c072ebe5920359690dff7119739"
+    },
+    {
+      "file": "10x10_4box_09.txt",
+      "size": "10x10",
+      "boxes": 4,
+      "seed": 21270125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 14
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 1875,
+        "seconds": 0.483887,
+        "valid": true,
+        "height": 10,
+        "width": 10,
+        "boxes": 4
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 24,
+        "seconds": 0.009386,
+        "valid": true,
+        "height": 10,
+        "width": 10,
+        "boxes": 4
+      },
+      "sha256": "b3d8abc5d92df263260648009ba1a8641f6934adb563355533c778b3ddab3983"
+    },
+    {
+      "file": "10x10_5box_10.txt",
+      "size": "10x10",
+      "boxes": 5,
+      "seed": 21271125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 12
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 12,
+        "expanded": 574,
+        "seconds": 0.159574,
+        "valid": true,
+        "height": 10,
+        "width": 10,
+        "boxes": 5
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 12,
+        "expanded": 12,
+        "seconds": 0.003663,
+        "valid": true,
+        "height": 10,
+        "width": 10,
+        "boxes": 5
+      },
+      "sha256": "06b3a0d14f87c5168a5d1e4302563d10cb1c759e270f37eb4645da0412358621"
+    },
+    {
+      "file": "11x11_1box_01.txt",
+      "size": "11x11",
+      "boxes": 1,
+      "seed": 21362125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 14
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 25,
+        "seconds": 0.008143,
+        "valid": true,
+        "height": 11,
+        "width": 11,
+        "boxes": 1
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 14,
+        "seconds": 0.006302,
+        "valid": true,
+        "height": 11,
+        "width": 11,
+        "boxes": 1
+      },
+      "sha256": "fff25fcc74f747d06e3b96756c15cde6e4ab8b95297b397200a17520ede7c50d"
+    },
+    {
+      "file": "11x11_2box_02.txt",
+      "size": "11x11",
+      "boxes": 2,
+      "seed": 21363125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 14
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 107,
+        "seconds": 0.024915,
+        "valid": true,
+        "height": 11,
+        "width": 11,
+        "boxes": 2
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 14,
+        "seconds": 0.005559,
+        "valid": true,
+        "height": 11,
+        "width": 11,
+        "boxes": 2
+      },
+      "sha256": "3d4d181bbd3eb5a944742a9552e473752c7ca40754bdb1c128269e6760b77d1a"
+    },
+    {
+      "file": "11x11_3box_03.txt",
+      "size": "11x11",
+      "boxes": 3,
+      "seed": 21364125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 14
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 1286,
+        "seconds": 0.403137,
+        "valid": true,
+        "height": 11,
+        "width": 11,
+        "boxes": 3
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 29,
+        "seconds": 0.012183,
+        "valid": true,
+        "height": 11,
+        "width": 11,
+        "boxes": 3
+      },
+      "sha256": "5612c3cd9c8c10bbd19f7f519b640d450a48baae50b5ac0fb5fdc4358f6b8856"
+    },
+    {
+      "file": "11x11_4box_04.txt",
+      "size": "11x11",
+      "boxes": 4,
+      "seed": 21365125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 14
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 1059,
+        "seconds": 0.430991,
+        "valid": true,
+        "height": 11,
+        "width": 11,
+        "boxes": 4
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 14,
+        "seconds": 0.006383,
+        "valid": true,
+        "height": 11,
+        "width": 11,
+        "boxes": 4
+      },
+      "sha256": "86e68d5e28a60634d074ead4c66a65b17b894c41a56db48ac2a7247db23c026a"
+    },
+    {
+      "file": "11x11_5box_05.txt",
+      "size": "11x11",
+      "boxes": 5,
+      "seed": 21366125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 14
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 1238,
+        "seconds": 0.254495,
+        "valid": true,
+        "height": 11,
+        "width": 11,
+        "boxes": 5
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 14,
+        "seconds": 0.004264,
+        "valid": true,
+        "height": 11,
+        "width": 11,
+        "boxes": 5
+      },
+      "sha256": "09d75f65226b431419c1c8b3e7979d16554c00ad3bc7cb5836f975ba47b7d368"
+    },
+    {
+      "file": "11x11_1box_06.txt",
+      "size": "11x11",
+      "boxes": 1,
+      "seed": 21367125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 14
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 23,
+        "seconds": 0.006764,
+        "valid": true,
+        "height": 11,
+        "width": 11,
+        "boxes": 1
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 14,
+        "seconds": 0.005001,
+        "valid": true,
+        "height": 11,
+        "width": 11,
+        "boxes": 1
+      },
+      "sha256": "2a118fb15dc39d18cf78fcd27b91cb959e072aaf7c51abbf38fdc5b1f3af0348"
+    },
+    {
+      "file": "11x11_2box_07.txt",
+      "size": "11x11",
+      "boxes": 2,
+      "seed": 21368125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 14
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 142,
+        "seconds": 0.048863,
+        "valid": true,
+        "height": 11,
+        "width": 11,
+        "boxes": 2
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 14,
+        "seconds": 0.007292,
+        "valid": true,
+        "height": 11,
+        "width": 11,
+        "boxes": 2
+      },
+      "sha256": "f6633eebfe396fd89b78084c2dc171721f609ef29b2326d8db5823e109ac8372"
+    },
+    {
+      "file": "11x11_3box_08.txt",
+      "size": "11x11",
+      "boxes": 3,
+      "seed": 21369125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 14
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 1186,
+        "seconds": 0.438598,
+        "valid": true,
+        "height": 11,
+        "width": 11,
+        "boxes": 3
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 14,
+        "seconds": 0.007818,
+        "valid": true,
+        "height": 11,
+        "width": 11,
+        "boxes": 3
+      },
+      "sha256": "61f2035ebf1ba1bbd4dbaff5ea1737a19118da267821f968e5dc2133c76d8d1e"
+    },
+    {
+      "file": "11x11_4box_09.txt",
+      "size": "11x11",
+      "boxes": 4,
+      "seed": 21370125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 14
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 820,
+        "seconds": 0.16155,
+        "valid": true,
+        "height": 11,
+        "width": 11,
+        "boxes": 4
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 16,
+        "seconds": 0.005756,
+        "valid": true,
+        "height": 11,
+        "width": 11,
+        "boxes": 4
+      },
+      "sha256": "181144c3bb1da62d32f671af142f96bc13c7827d172a61a3d80f288b5954d131"
+    },
+    {
+      "file": "11x11_5box_10.txt",
+      "size": "11x11",
+      "boxes": 5,
+      "seed": 21371125,
+      "difficulty_target": 1,
+      "generator": {
+        "verified": true,
+        "meets_difficulty_target": true,
+        "solution_pushes": 14
+      },
+      "bfs": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 3993,
+        "seconds": 1.38053,
+        "valid": true,
+        "height": 11,
+        "width": 11,
+        "boxes": 5
+      },
+      "idastar": {
+        "status": "solved",
+        "pushes": 14,
+        "expanded": 82,
+        "seconds": 0.052693,
+        "valid": true,
+        "height": 11,
+        "width": 11,
+        "boxes": 5
+      },
+      "sha256": "f62070c3fe8447e720f847e2eb55b4c72009d6d35349fcc57314b5d9215933b1"
+    }
+  ]
+}
