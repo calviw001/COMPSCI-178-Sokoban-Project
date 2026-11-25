@@ -1,26 +1,37 @@
-"""
-command line input
- Main.py [-h] [--time-limit SECONDS] [path]
-output:
-    print board states
-"""
+"""Run a Sokoban solver and print its search statistics."""
 import argparse
 from pathlib import Path
+import sys
+
 from IDAStar import IDAStar
 from Puzzle import Puzzle
 from State import State
 
 
 def main():
-    #parse the command line args
-    # Main.py [-h] [--time-limit SECONDS] [path]
-    parser = argparse.ArgumentParser(description="Solve Sokoban with IDA*")
+    # Keep the original path-only form as IDA* with all optimizations.
+    argv = sys.argv[1:]
+    explicit_ida = bool(argv and argv[0] == "ida")
+    if explicit_ida:
+        argv.pop(0)
+    parser = argparse.ArgumentParser(
+        description="Solve Sokoban with IDA*",
+        usage="%(prog)s [ida] [path] [-d] [-s] [-f] [--time-limit SECONDS]",
+    )
     parser.add_argument("path", nargs="?", type=Path, default=(
         Path(__file__).resolve().parent / "tests" / "test_puzzles" / "medium.txt"),
         help="map file or folder containing .txt maps")
     parser.add_argument("--time-limit", type=float, default=None, metavar="SECONDS",
                         help="time limit for each map")
-    args = parser.parse_args()
+    parser.add_argument("-d", action="store_true", help="enable static deadlock detection")
+    parser.add_argument("-s", action="store_true", help="enable move sorting")
+    parser.add_argument("-f", action="store_true", help="enable frozen-block detection")
+    args = parser.parse_args(argv)
+    flags = (args.d, args.s, args.f)
+    if not explicit_ida and any(flags):
+        parser.error("-d, -s and -f require the ida mode")
+    if not explicit_ida:
+        flags = (True, True, True)
 
     if args.time_limit is not None and args.time_limit <= 0:
         parser.error("--time-limit must be positive")
@@ -50,7 +61,7 @@ def main():
         print(f"\n=== {puzzle_file} ===", flush=True)
 
         try:
-            solve_file(puzzle_file, args.time_limit)
+            solve_file(puzzle_file, args.time_limit, flags=flags)
             solved_files.append(puzzle_file.name)
         except (OSError, UnicodeError, ValueError) as error:
             print(f"Could not solve {puzzle_file.name}: {error}")
@@ -61,18 +72,14 @@ def main():
         print(each)
 
 
-def solve_file(puzzle_file, time_limit=None, quiet=False):
-    """Print the initial board and each solution push for one input file."""
+def solve_file(puzzle_file, time_limit=None, quiet=True, *,
+               flags=(True, True, True)):
+    """Print the board and search statistics for one map."""
     board_text = puzzle_file.read_text()
-    puzzle = Puzzle()
+    deadlock, sorting, frozen = flags
+    puzzle = Puzzle(useDeadlocks=deadlock, sortStates=sorting, checkFrozenBox=frozen)
     puzzle.parsePuzzleFile(puzzle_file)
 
-    puzzle.useDeadlocks = True
-    puzzle.sortStates = True
-    puzzle.checkFrozenBox = True
-    quiet = True
-
-    # print original board
     print("Initial board:")
     print(board_text.rstrip("\n"))
     print(flush=True)
@@ -88,17 +95,15 @@ def solve_file(puzzle_file, time_limit=None, quiet=False):
         if solution is None:
             print("No solution exists.")
         else:
+            print(f"Solved: {len(solution)} pushes")
+        if solution is not None and not quiet:
             state = puzzle.startState
             for step, (box, direction) in enumerate(solution, 1):
-                # TODO: add BFS to print walking steps
-
                 next_state = puzzle.applySinglePush(state, box, direction)
-                # player ends at the old box position
+                # After a push, the player stands where the box was.
                 state = State(next_state.boxes, box)
-                if not quiet:
-                    print(f"Step {step}:")
-                    puzzle.printCurrentPuzzle(state)
-            print(f"Solved: {len(solution)} pushes")
+                print(f"Step {step}:")
+                puzzle.printCurrentPuzzle(state)
 
     print(f"Expanded states: {solver.nodes_expanded}")
     print(f"Running time: {solver.elapsed_seconds:.6f} seconds")

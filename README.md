@@ -4,29 +4,28 @@ Run commands from the project root.
 
 ## Command
 
+Replace `xx.txt` with your map path. Each command reports box pushes when solved, expanded states, and running time in seconds.
+
+| Configuration | Command |
+|---|---|
+| IDA* | `python Main.py ida xx.txt` |
+| IDA* + deadlock | `python Main.py ida xx.txt -d` |
+| IDA* + sorting | `python Main.py ida xx.txt -s` |
+| IDA* + frozen block | `python Main.py ida xx.txt -f` |
+| IDA* + deadlock + sorting | `python Main.py ida xx.txt -ds` |
+| IDA* + deadlock + frozen block | `python Main.py ida xx.txt -df` |
+| IDA* + sorting + frozen block | `python Main.py ida xx.txt -sf` |
+| IDA* + all three | `python Main.py ida xx.txt -dsf` |
+
+With explicit `ida` mode, each optimization is off until enabled by its flag. Flags can be combined.
+
 ```bash
-
-usage: Main.py [-h] [--time-limit SECONDS] [path]
-
-# File (replace xxx.txt with your map filename)
-python Main.py tests/test_puzzles/xxx.txt
-
-# Folder
-python Main.py tests/test_puzzles
-
-# File with a 30-second time limit
-python Main.py tests/test_puzzles/xxx.txt --time-limit 30
-
-# Folder with a 30-second time limit per map
-python Main.py tests/test_puzzles --time-limit 30
-
-# Default map (medium.txt)
-python Main.py
-
-# Help
+python Main.py ida tests/test_puzzles/small.txt -dsf --time-limit 30
+python Main.py ida tests/test_puzzles/7x7 -dsf --time-limit 30
 python Main.py --help
-
 ```
+
+The time limit applies per map. The original `python Main.py xx.txt` form runs IDA* with all three optimizations. With no path, the default map is `tests/test_puzzles/medium.txt`.
 
 ## Performance
 
