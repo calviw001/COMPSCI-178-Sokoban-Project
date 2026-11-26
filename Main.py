@@ -50,15 +50,18 @@ def main():
         print(f"\n=== {puzzle_file} ===", flush=True)
 
         try:
-            solve_file(puzzle_file, args.time_limit)
-            solved_files.append(puzzle_file.name)
+            result = solve_file(puzzle_file, args.time_limit)
+            if result:
+                solved_files.append(puzzle_file.name)
         except (OSError, UnicodeError, ValueError) as error:
             print(f"Could not solve {puzzle_file.name}: {error}")
             if len(files) == 1:
                 raise SystemExit(1)
-            
-    for each in solved_files:
-        print(each)
+
+    print()
+    print(f"Solved {len(solved_files)} out of {len(files)} puzzles:")
+    for name in solved_files:
+        print(f"  {name}")
 
 
 def solve_file(puzzle_file, time_limit=None, quiet=False):
@@ -77,6 +80,7 @@ def solve_file(puzzle_file, time_limit=None, quiet=False):
     print(board_text.rstrip("\n"))
     print(flush=True)
     solver = IDAStar(puzzle, time_limit=time_limit)
+    solved = False
 
     try:
         solution = solver.solve()
@@ -88,6 +92,7 @@ def solve_file(puzzle_file, time_limit=None, quiet=False):
         if solution is None:
             print("No solution exists.")
         else:
+            solved = True
             state = puzzle.startState
             for step, (box, direction) in enumerate(solution, 1):
                 # TODO: add BFS to print walking steps
@@ -102,6 +107,7 @@ def solve_file(puzzle_file, time_limit=None, quiet=False):
 
     print(f"Expanded states: {solver.nodes_expanded}")
     print(f"Running time: {solver.elapsed_seconds:.6f} seconds")
+    return solved
 
 
 if __name__ == "__main__":
