@@ -1,6 +1,6 @@
 """
 command line input
- Main.py [-h] [--time-limit SECONDS] [path]
+ Main.py [-h] [--time-limit SECONDS] [--output FILE] [path]
 output:
     print board states
 """
@@ -9,21 +9,28 @@ from pathlib import Path
 from IDAStar import IDAStar
 from Puzzle import Puzzle
 from State import State
+from contextlib import redirect_stdout, nullcontext
 
 
 def main():
     #parse the command line args
-    # Main.py [-h] [--time-limit SECONDS] [path]
+    # Main.py [-h] [--time-limit SECONDS] [--output FILE] [path]
     parser = argparse.ArgumentParser(description="Solve Sokoban with IDA*")
     parser.add_argument("path", nargs="?", type=Path, default=(
         Path(__file__).resolve().parent / "tests" / "test_puzzles" / "medium.txt"),
         help="map file or folder containing .txt maps")
     parser.add_argument("--time-limit", type=float, default=None, metavar="SECONDS",
                         help="time limit for each map")
+    parser.add_argument("--output", type=Path, default=None, metavar="FILE",
+                        help="also write everything printed to this file")
     args = parser.parse_args()
 
     if args.time_limit is not None and args.time_limit <= 0:
         parser.error("--time-limit must be positive")
+
+    outputFile = None
+    if args.output is not None:
+        outputFile = open(args.output.expanduser(), "w", encoding="utf-8", buffering=1)
 
     #check path is file or folder
     target = args.path.expanduser()
@@ -44,24 +51,29 @@ def main():
     else:
         parser.error(f"File or folder does not exist: {target}")
 
-    # solve each file
-    solved_files = []
-    for puzzle_file in files:
-        print(f"\n=== {puzzle_file} ===", flush=True)
+    try:
+        with redirect_stdout(outputFile) if outputFile else nullcontext():
+            # solve each file
+            solved_files = []
+            for puzzle_file in files:
+                print(f"\n=== {puzzle_file} ===", flush=True)
 
-        try:
-            result = solve_file(puzzle_file, args.time_limit)
-            if result:
-                solved_files.append(puzzle_file.name)
-        except (OSError, UnicodeError, ValueError) as error:
-            print(f"Could not solve {puzzle_file.name}: {error}")
-            if len(files) == 1:
-                raise SystemExit(1)
+                try:
+                    result = solve_file(puzzle_file, args.time_limit)
+                    if result:
+                        solved_files.append(puzzle_file.name)
+                except (OSError, UnicodeError, ValueError) as error:
+                    print(f"Could not solve {puzzle_file.name}: {error}")
+                    if len(files) == 1:
+                        raise SystemExit(1)
 
-    print()
-    print(f"Solved {len(solved_files)} out of {len(files)} puzzles:")
-    for name in solved_files:
-        print(f"  {name}")
+            print()
+            print(f"Solved {len(solved_files)} out of {len(files)} puzzles:")
+            for name in solved_files:
+                print(f"  {name}")
+    finally:
+        if outputFile is not None:
+            outputFile.close()
 
 
 def solve_file(puzzle_file, time_limit=None, quiet=False):
