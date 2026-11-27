@@ -1,6 +1,6 @@
 """
 command line input
- Main.py [-h] [--time-limit SECONDS] [--output FILE] [path]
+ Main.py [-h] [--time-limit SECONDS] [--output FILE] [--no-deadlocks] [--no-sorting] [--no-frozen-check] [path]
 output:
     print board states
 """
@@ -11,10 +11,24 @@ from Puzzle import Puzzle
 from State import State
 from contextlib import redirect_stdout, nullcontext
 
+# No deadlocks, no sorting, no frozen check:
+# py Main.py FILE --time-limit SECONDS --no-deadlocks --no-sorting --no-frozen-check --output FILE
+
+# No deadlocks, no sorting:
+# py Main.py FILE --time-limit SECONDS --no-deadlocks --no-sorting --output FILE
+
+# No deadlocks, no frozen check:
+# py Main.py FILE --time-limit SECONDS --no-deadlocks --no-frozen-check --output FILE
+
+# No sorting, no frozen check:
+# py Main.py FILE --time-limit SECONDS --no-sorting --no-frozen-check --output FILE
+
+# Have everything on:
+# py Main.py FILE --time-limit SECONDS --output FILE
 
 def main():
     #parse the command line args
-    # Main.py [-h] [--time-limit SECONDS] [--output FILE] [path]
+    # Main.py [-h] [--time-limit SECONDS] [--output FILE] [--no-deadlocks] [--no-sorting] [--no-frozen-check] [path]
     parser = argparse.ArgumentParser(description="Solve Sokoban with IDA*")
     parser.add_argument("path", nargs="?", type=Path, default=(
         Path(__file__).resolve().parent / "tests" / "test_puzzles" / "medium.txt"),
@@ -23,6 +37,12 @@ def main():
                         help="time limit for each map")
     parser.add_argument("--output", type=Path, default=None, metavar="FILE",
                         help="also write everything printed to this file")
+    parser.add_argument("--no-deadlocks", action="store_true",
+                        help="turn off static deadlock pruning")
+    parser.add_argument("--no-sorting", action="store_true",
+                        help="turn off move ordering")
+    parser.add_argument("--no-frozen-check", action="store_true",
+                        help="turn off frozen box pruning")
     args = parser.parse_args()
 
     if args.time_limit is not None and args.time_limit <= 0:
@@ -59,7 +79,7 @@ def main():
                 print(f"\n=== {puzzle_file} ===", flush=True)
 
                 try:
-                    result = solve_file(puzzle_file, args.time_limit)
+                    result = solve_file(puzzle_file, args.time_limit, useDeadlocks=not args.no_deadlocks, sortStates=not args.no_sorting, checkFrozenBox=not args.no_frozen_check)
                     if result:
                         solved_files.append(puzzle_file.name)
                 except (OSError, UnicodeError, ValueError) as error:
@@ -76,15 +96,15 @@ def main():
             outputFile.close()
 
 
-def solve_file(puzzle_file, time_limit=None, quiet=False):
+def solve_file(puzzle_file, time_limit=None, useDeadlocks=True, sortStates=True, checkFrozenBox=True):
     """Print the initial board and each solution push for one input file."""
     board_text = puzzle_file.read_text()
     puzzle = Puzzle()
     puzzle.parsePuzzleFile(puzzle_file)
 
-    puzzle.useDeadlocks = True
-    puzzle.sortStates = True
-    puzzle.checkFrozenBox = True
+    puzzle.useDeadlocks = useDeadlocks
+    puzzle.sortStates = sortStates
+    puzzle.checkFrozenBox = checkFrozenBox
     quiet = True
 
     # print original board
